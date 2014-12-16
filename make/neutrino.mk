@@ -14,7 +14,7 @@ $(targetprefix)/var/etc/.version:
 #
 #
 NEUTRINO_DEPS  = bootstrap libcrypto libcurl libpng libjpeg libgif libfreetype
-NEUTRINO_DEPS += ffmpeg lua luaexpat luacurl libdvbsipp libsigc libopenthreads libusb libalsa
+NEUTRINO_DEPS += ffmpeg lua luaexpat libdvbsipp libsigc libopenthreads libusb libalsa
 NEUTRINO_DEPS += $(EXTERNALLCD_DEP)
 
 NEUTRINO_DEPS2 = libid3tag libmad libvorbisidec
@@ -845,4 +845,104 @@ neutrino-mp-tangos-clean:
 neutrino-mp-tangos-distclean:
 	rm -rf $(N_OBJDIR)
 	rm -f $(D)/neutrino-mp-tangos*
+################################################################################
+#
+# FS-Neutrino-gh-mp-next-cst
+#
+yaud-neutrino-mp-fs: yaud-none lirc \
+		boot-elf neutrino-mp-fs release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
 
+yaud-neutrino-mp-fs-plugins: yaud-none lirc \
+		boot-elf neutrino-mp-fs neutrino-mp-plugins release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+FS_NEUTRINO_PATCHES = 
+
+$(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-github
+	rm -rf $(sourcedir)/neutrino-mp-fs
+	rm -rf $(sourcedir)/neutrino-mp-fs.org
+	rm -rf $(N_OBJDIR)
+	[ -d "$(archivedir)/neutrino-mp-fs.git" ] && \
+	(cd $(archivedir)/neutrino-mp-fs.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp-fs.git" ] || \
+	git clone https://github.com/Frankenstone/neutrino-mp-fs $(archivedir)/neutrino-mp-fs.git; \
+	cp -ra $(archivedir)/neutrino-mp-fs.git $(sourcedir)/neutrino-mp-fs; \
+	cp -ra $(sourcedir)/neutrino-mp-fs $(sourcedir)/neutrino-mp-fs.org
+	for i in $(FS_NEUTRINO_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		cd $(sourcedir)/neutrino-mp-fs && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(D)/neutrino-mp-fs.config.status:
+	rm -rf $(N_OBJDIR)
+	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR) && \
+	cd $(N_OBJDIR) && \
+		$(sourcedir)/neutrino-mp-fs/autogen.sh && \
+		$(BUILDENV) \
+		$(sourcedir)/neutrino-mp-fs/configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--disable-upnp \
+			--disable-webif \
+			--disable-fastscan \
+			--enable-ffmpegdec \
+			--enable-giflib \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/tuxbox/plugins \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-github/include \
+			--with-stb-hal-build=$(LH_OBJDIR) \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(sourcedir)/neutrino-mp-fs/src/gui/version.h:
+	@rm -f $@; \
+	echo '#define BUILT_DATE "'`date`'"' > $@
+	@if test -d $(sourcedir)/libstb-hal-github ; then \
+		pushd $(sourcedir)/libstb-hal-github ; \
+		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(sourcedir)/neutrino-mp-fs ; \
+		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(buildprefix) ; \
+		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		echo '#define VCS "FS_BASE-rev'$$DDT_REV'_HAL-github-rev'$$HAL_REV'_FS-Neutrino-rev'$$NMP_REV'"' >> $@ ; \
+	fi
+
+$(D)/neutrino-mp-fs.do_compile: neutrino-mp-fs.config.status $(sourcedir)/neutrino-mp-fs/src/gui/version.h
+	cd $(sourcedir)/neutrino-mp-fs && \
+		$(MAKE) -C $(N_OBJDIR) all
+	touch $@
+
+$(D)/neutrino-mp-fs: neutrino-mp-fs.do_prepare neutrino-mp-fs.do_compile
+	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-mp-fs-clean:
+	rm -f $(D)/neutrino-mp-fs
+	rm -f $(sourcedir)/neutrino-mp-fs/src/gui/version.h
+	cd $(N_OBJDIR) && \
+		$(MAKE) -C $(N_OBJDIR) distclean
+
+neutrino-mp-fs-distclean:
+	rm -rf $(N_OBJDIR)
+	rm -f $(D)/neutrino-mp-fs*
+
+################################################################################

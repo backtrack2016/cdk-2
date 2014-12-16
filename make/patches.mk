@@ -2,6 +2,7 @@
 # diff helper
 #
 enigma2-nightly-diff \
+neutrino-mp-fs-diff \
 neutrino-mp-next-diff \
 neutrino-mp-tangos-diff \
 neutrino-mp-martii-github-diff \
@@ -38,4 +39,7 @@ NEUTRINO_MP_TANGOS_PATCHES +=
 # Neutrino HD2
 NEUTRINO_HD2_PATCHES += $(PATCHES)/neutrino-hd2-exp.diff
 NEUTRINO_HD2_PLUGINS_PATCHES += 
+
+#Neutrino MP FS
+FS_NEUTRINO_PATCHES += 
 
