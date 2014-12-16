@@ -62,7 +62,8 @@ case $1 in
 	*)
 		echo "Target receivers:"
 		echo "    1) Kathrein UFS-910"
-		echo "    3) Kathrein UFS-912"
+		echo "    2) Kathrein UFS-912"
+		echo "    3) Kathrein UFS-913"
 		echo "    4) Kathrein UFS-922"
 		echo "    5) Topfield TF77X0 HDPVR"
 		echo "    6) Fortis HDbox (Fortis FS9000/9200)"
@@ -87,21 +88,21 @@ case $1 in
 		echo "   25) B4Team ADB 5800S"
 		echo "   26) Fortis HS7110"
 		echo "   27) Atemio AM520"
-		echo "   28) Kathrein UFS-913"
-		echo "   29) Kathrein UFC-960"
-		echo "   30) Vitamin HD5000"
-		echo "   31) Atemio AM530"
-		echo "   32) SagemCom 88 series"
-		echo "   33) Ferguson Ariva @Link 200"
-		echo "   34) Fortis HS7119"
-		echo "   35) Fortis HS7819"
-		echo "   36) Fortis DP7000 (not finished yet)"
+		echo "   28) Kathrein UFC-960"
+		echo "   29) Vitamin HD5000"
+		echo "   30) Atemio AM530"
+		echo "   31) SagemCom 88 series"
+		echo "   32) Ferguson Ariva @Link 200"
+		echo "   33) Fortis HS7119"
+		echo "   34) Fortis HS7819"
+		echo "   35) Fortis DP7000 (not finished yet)"
 		read -p "Select target (1-36)? ";;
 esac
 
 case "$REPLY" in
 	 1) TARGET="--enable-ufs910";BOXTYPE="--with-boxtype=ufs910";;
-	 3) TARGET="--enable-ufs912";BOXTYPE="--with-boxtype=ufs912";;
+	 2) TARGET="--enable-ufs912";BOXTYPE="--with-boxtype=ufs912";;
+	 3) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
 	 4) TARGET="--enable-ufs922";BOXTYPE="--with-boxtype=ufs922";;
 	 5) TARGET="--enable-tf7700";BOXTYPE="--with-boxtype=tf7700";;
 	 6) TARGET="--enable-fortis_hdbox";BOXTYPE="--with-boxtype=fortis_hdbox";;
@@ -126,15 +127,14 @@ case "$REPLY" in
 	25) TARGET="--enable-adb_box";BOXTYPE="--with-boxtype=adb_box";;
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
 	27) TARGET="--enable-atemio520";BOXTYPE="--with-boxtype=atemio520";;
-	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
-	29) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
-	30) TARGET="--enable-vitamin_hd5000";BOXTYPE="--with-boxtype=vitamin_hd5000";;
-	31) TARGET="--enable-atemio530";BOXTYPE="--with-boxtype=atemio530";;
-	32) TARGET="--enable-sagemcom88";BOXTYPE="--with-boxtype=sagemcom88";;
-	33) TARGET="--enable-arivalink200";BOXTYPE="--with-boxtype=arivalink200";;
-	34) TARGET="--enable-hs7119";BOXTYPE="--with-boxtype=hs7119";;
-	35) TARGET="--enable-hs7819";BOXTYPE="--with-boxtype=hs7819";;
-	36) TARGET="--enable-fortis_dp7000";BOXTYPE="--with-boxtype=fortis_dp7000";;
+	28) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
+	29) TARGET="--enable-vitamin_hd5000";BOXTYPE="--with-boxtype=vitamin_hd5000";;
+	30) TARGET="--enable-atemio530";BOXTYPE="--with-boxtype=atemio530";;
+	31) TARGET="--enable-sagemcom88";BOXTYPE="--with-boxtype=sagemcom88";;
+	32) TARGET="--enable-arivalink200";BOXTYPE="--with-boxtype=arivalink200";;
+	33) TARGET="--enable-hs7119";BOXTYPE="--with-boxtype=hs7119";;
+	34) TARGET="--enable-hs7819";BOXTYPE="--with-boxtype=hs7819";;
+	35) TARGET="--enable-fortis_dp7000";BOXTYPE="--with-boxtype=fortis_dp7000";;
 	 *) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
