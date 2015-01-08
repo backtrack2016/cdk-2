@@ -23,11 +23,11 @@ COMMONPATCHES_24 = \
 		linux-tune_stm24.patch \
 		linux-sh4-permit_gcc_command_line_sections_stm24.patch \
 		linux-sh4-mmap_stm24.patch \
-		$(if $(P0215),linux-ratelimit-bug_stm24$(PATCH_STR).patch) \
-		$(if $(P0215),linux-patch_swap_notify_core_support_stm24$(PATCH_STR).patch) \
+		$(if $(P0215)$(P0217),linux-ratelimit-bug_stm24$(PATCH_STR).patch) \
+		$(if $(P0215)$(P0217),linux-patch_swap_notify_core_support_stm24$(PATCH_STR).patch) \
 		$(if $(P0209),linux-sh4-dwmac_stm24_0209.patch) \
 		$(if $(P0209),linux-sh4-directfb_stm24$(PATCH_STR).patch) \
-		$(if $(P0211)$(P0214)$(P0215),linux-sh4-console_missing_argument_stm24$(PATCH_STR).patch)
+		$(if $(P0211)$(P0214)$(P0215)$(P0217),linux-sh4-console_missing_argument_stm24$(PATCH_STR).patch)
 
 #		$(if $(P0209)$(P0211),linux-sh4-remove_pcm_reader_stm24.patch)
 
@@ -313,6 +313,26 @@ HOST_KERNEL_PATCHES = $(KERNELPATCHES_24)
 HOST_KERNEL_CONFIG = linux-sh4-$(subst _stm24_,-,$(KERNELVERSION))_$(MODNAME).config$(DEBUG_STR)
 HOST_KERNEL_RPM = $(archivedir)/stlinux24-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).noarch.rpm
 
+if ENABLE_P0217
+$(D)/linux-kernel.do_prepare: \
+		$(if $(HOST_KERNEL_PATCHES),$(HOST_KERNEL_PATCHES:%=Patches/$(BUILDCONFIG$)/%))
+	rm -rf linux-sh4*
+	[ -d "$(archivedir)/linux-sh4-2.6.32.y.git" ] && \
+	(cd $(archivedir)/linux-sh4-2.6.32.y.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/linux-sh4-2.6.32.y.git" ] || \
+	git clone git://git.stlinux.com/stm/linux-sh4-2.6.32.y.git $(archivedir)/linux-sh4-2.6.32.y.git;protocol=git;branch=stmicro; \
+	cp -ra $(archivedir)/linux-sh4-2.6.32.y.git $(buildprefix)/$(KERNEL_DIR);
+	$(if $(HOST_KERNEL_PATCHES),cd $(KERNEL_DIR) && cat $(HOST_KERNEL_PATCHES:%=$(buildprefix)/Patches/$(BUILDCONFIG$)/%) | patch -p1)
+	$(INSTALL) -m644 Patches/$(BUILDCONFIG)/$(HOST_KERNEL_CONFIG) $(KERNEL_DIR)/.config
+	ln -s $(KERNEL_DIR) $(buildprefix)/linux-sh4
+	-rm $(KERNEL_DIR)/localversion*
+	echo "$(KERNELSTMLABEL)" > $(KERNEL_DIR)/localversion-stm
+	$(MAKE) -C $(KERNEL_DIR) ARCH=sh oldconfig
+	$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/asm
+	$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/linux/version.h
+	rm $(KERNEL_DIR)/.config
+	touch $@
+else
 $(D)/linux-kernel.do_prepare: \
 		$(if $(HOST_KERNEL_PATCHES),$(HOST_KERNEL_PATCHES:%=Patches/$(BUILDCONFIG$)/%)) \
 		$(HOST_KERNEL_RPM)
@@ -328,7 +348,7 @@ $(D)/linux-kernel.do_prepare: \
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/linux/version.h
 	rm $(KERNEL_DIR)/.config
 	touch $@
-
+endif
 $(D)/linux-kernel.do_compile: $(D)/linux-kernel.do_prepare Patches/$(BUILDCONFIG)/$(HOST_KERNEL_CONFIG) | $(HOST_U_BOOT_TOOLS)
 	cd $(KERNEL_DIR) && \
 		$(MAKE) ARCH=sh CROSS_COMPILE=$(target)- mrproper && \

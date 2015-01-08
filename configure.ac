@@ -101,6 +101,14 @@ AC_ARG_ENABLE(p0215,
 AM_CONDITIONAL(ENABLE_P0215,test "$enable_p0215" = "yes")
 AC_SUBST(P0215)
 
+AC_ARG_ENABLE(p0217,
+	AS_HELP_STRING(--enable-p0217, set up the CDK to use the STLinux 2.4 Kernel Git),
+	[case "${enableval}" in
+		yes) P0217=p0217 ;;
+	esac], [enable_p0217=no])
+AM_CONDITIONAL(ENABLE_P0217,test "$enable_p0217" = "yes")
+AC_SUBST(P0217)
+
 AC_ARG_WITH(cpu,
 	[  --with-cpu=MODEL    cpu model [[sh4]]],
 	[CPU_MODEL="$withval"],[CPU_MODEL="sh4"])
@@ -706,6 +714,13 @@ elif test "$enable_p0215" == "yes"; then
 	KERNELLABEL="215"
 	PATCH_STR="_0215"
 	KERNEL_DIR="linux-sh4-${VERSION_linuxp0215}"
+elif test "$enable_p0217" == "yes"; then
+	TUXBOX_RULES_MAKE(linuxp0217)
+	KERNELVERSION=${VERSION_linuxp0217}
+	KERNELSTMLABEL="_${VERSION_linuxp0217#*_}"
+	KERNELLABEL="217"
+	PATCH_STR="_0217"
+	KERNEL_DIR="linux-sh4-${VERSION_linuxp0217}"
 fi
 
 AC_SUBST(EXTERNALLCD_DEP)
@@ -1011,6 +1026,7 @@ Patchlevel P0209            : $enable_p0209
 Patchlevel P0211            : $enable_p0211
 Patchlevel P0214            : $enable_p0214
 Patchlevel P0215            : $enable_p0215
+Patchlevel P0217            : $enable_p0217
 DEBUG                       : $enable_debug
 boot prefix                 : $bootprefix
 serversupport               : $serversupport
