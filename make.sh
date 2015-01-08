@@ -168,7 +168,7 @@ case $2 in
 		echo "   2) STM 24 P0211 (recommended)"
 		echo "   3) STM 24 P0214 (experimental)"
 		echo "   4) STM 24 P0215 (experimental)"
-		echo "   5) STM 24 P0217 (experimental)"
+		echo "   5) STM 24 P0217 (stm-kernel-git, experimental)"
 		read -p "Select kernel (1-5)? ";;
 esac
 
