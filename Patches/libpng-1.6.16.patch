@@ -1,0 +1,86 @@
+--- libpng-1.6.16/Makefile.am.org	2014-12-15 01:44:00.000000000 +0100
++++ libpng-1.6.16/Makefile.am	2015-01-14 09:24:28.169901994 +0100
+@@ -10,7 +10,7 @@
+ check_PROGRAMS= pngtest pngunknown pngstest pngvalid pngimage
+ 
+ # Utilities - installed
+-bin_PROGRAMS= pngfix png-fix-itxt
++bin_PROGRAMS=
+ 
+ # This ensures that pnglibconf.h gets built at the start of 'make all' or
+ # 'make check', but it does not add dependencies to the individual programs,
+@@ -230,7 +230,7 @@
+ # interfering with the symbol file format.
+ SYMBOL_CFLAGS = -DPNGLIB_LIBNAME='PNG@PNGLIB_MAJOR@@PNGLIB_MINOR@_0'\
+ 		-DPNGLIB_VERSION='@PNGLIB_VERSION@'\
+-		-DSYMBOL_PREFIX='$(SYMBOL_PREFIX)'\
++		-DSYMBOL_PREFIX=''\
+ 		-DPNG_NO_USE_READ_MACROS -DPNG_BUILDING_SYMBOL_TABLE
+ 
+ if DO_PNG_PREFIX
+--- libpng-1.6.16/Makefile.in.org	2014-12-22 04:08:19.000000000 +0100
++++ libpng-1.6.16/Makefile.in	2015-01-14 09:25:38.705905507 +0100
+@@ -87,7 +87,7 @@
+ host_triplet = @host@
+ check_PROGRAMS = pngtest$(EXEEXT) pngunknown$(EXEEXT) \
+ 	pngstest$(EXEEXT) pngvalid$(EXEEXT) pngimage$(EXEEXT)
+-bin_PROGRAMS = pngfix$(EXEEXT) png-fix-itxt$(EXEEXT)
++bin_PROGRAMS =
+ @PNG_ARM_NEON_TRUE@am__append_1 = arm/arm_init.c\
+ @PNG_ARM_NEON_TRUE@	arm/filter_neon.S arm/filter_neon_intrinsics.c
+ 
+@@ -734,7 +734,7 @@
+ # interfering with the symbol file format.
+ SYMBOL_CFLAGS = -DPNGLIB_LIBNAME='PNG@PNGLIB_MAJOR@@PNGLIB_MINOR@_0' \
+ 	-DPNGLIB_VERSION='@PNGLIB_VERSION@' \
+-	-DSYMBOL_PREFIX='$(SYMBOL_PREFIX)' -DPNG_NO_USE_READ_MACROS \
++	-DSYMBOL_PREFIX='' -DPNG_NO_USE_READ_MACROS \
+ 	-DPNG_BUILDING_SYMBOL_TABLE $(am__append_5)
+ 
+ # EXT_LIST is a list of the possibly library directory extensions, this exists
+--- libpng-1.6.16/pngrtran.c.org	2014-12-22 04:08:07.000000000 +0100
++++ libpng-1.6.16/pngrtran.c	2015-01-14 09:28:18.121913447 +0100
+@@ -4697,6 +4697,34 @@
+  * and is very touchy.  If you add a transformation, take care to
+  * decide how it fits in with the other transformations here.
+  */
++
++void /* PRIVATE */
++png_do_remove_color_if_full_alpha(png_row_infop row_info, png_bytep row)
++{
++   png_uint_32 row_width;
++   png_debug(1, "in png_do_read_invert_alpha");
++   row_width = row_info->width;
++   if (row_info->color_type == PNG_COLOR_TYPE_RGB_ALPHA)
++   {
++      if (row_info->bit_depth == 8)
++      {
++         png_bytep sp = row + row_info->rowbytes;
++         png_bytep dp = sp;
++         png_uint_32 i;
++         float f;
++
++         for (i = 0; i < row_width; i++)
++         {
++               --dp;
++            f = ((png_byte)*(--sp))/255.0; //a
++            *(--dp) = ((png_byte)*(--sp))*f; //r
++            *(--dp) = ((png_byte)*(--sp))*f; //g
++            *(--dp) = ((png_byte)*(--sp))*f; //b
++         }
++      }
++   }
++}
++ 
+ void /* PRIVATE */
+ png_do_read_transformations(png_structrp png_ptr, png_row_infop row_info)
+ {
+@@ -4727,6 +4755,8 @@
+       png_error(png_ptr, "Uninitialized row");
+    }
+ 
++png_do_remove_color_if_full_alpha(row_info, png_ptr->row_buf + 1);
++
+ #ifdef PNG_READ_EXPAND_SUPPORTED
+    if ((png_ptr->transformations & PNG_EXPAND) != 0)
+    {
