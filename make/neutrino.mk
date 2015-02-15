@@ -119,7 +119,7 @@ $(D)/libstb-hal-github.do_prepare:
 	[ -d "$(archivedir)/libstb-hal-github.git" ] && \
 	(cd $(archivedir)/libstb-hal-github.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal-github.git" ] || \
-	git clone https://github.com/MaxWiesel/libstb-hal.git $(archivedir)/libstb-hal-github.git; \
+	git clone https://github.com/fs-basis/libstb-hal.git $(archivedir)/libstb-hal-github.git; \
 	cp -ra $(archivedir)/libstb-hal-github.git $(sourcedir)/libstb-hal-github;\
 	cp -ra $(sourcedir)/libstb-hal-github $(sourcedir)/libstb-hal-github.org
 	for i in $(NEUTRINO_MP_LIBSTB_GH_PATCHES); do \
