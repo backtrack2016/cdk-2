@@ -183,7 +183,7 @@ $(D)/neutrino-mp-github-next-cst.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-githu
 	[ -d "$(archivedir)/neutrino-mp-github-next-cst.git" ] && \
 	(cd $(archivedir)/neutrino-mp-github-next-cst.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp-github-next-cst.git" ] || \
-	git clone https://github.com/MaxWiesel/neutrino-mp-cst-next.git $(archivedir)/neutrino-mp-github-next-cst.git; \
+	git clone https://github.com/Duckbox-Developers/neutrino-mp-cst-next.git $(archivedir)/neutrino-mp-github-next-cst.git; \
 	cp -ra $(archivedir)/neutrino-mp-github-next-cst.git $(sourcedir)/neutrino-mp-github-next-cst; \
 	cp -ra $(sourcedir)/neutrino-mp-github-next-cst $(sourcedir)/neutrino-mp-github-next-cst.org
 	for i in $(NEUTRINO_MP_GH_NEXT_CST_PATCHES); do \
