@@ -564,7 +564,7 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 	else
 		TARGET_CFLAGS="$TARGET_CFLAGS -Os -I$targetprefix/usr/include"
 		TARGET_LDFLAGS="-Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$targetprefix/usr/lib -L$targetprefix/usr/lib -L$targetprefix/lib"
-		TARGET_CFLAGS="$TARGET_CFLAGS -ffunction-sections"
+		TARGET_CFLAGS="$TARGET_CFLAGS -ffunction-sections -fdata-sections"
 		TARGET_LDFLAGS="$TARGET_LDFLAGS -Wl,--gc-sections,-lrt"
 	fi
 	TARGET_CXXFLAGS="$TARGET_CFLAGS"
