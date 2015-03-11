@@ -1078,8 +1078,6 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--disable-runtime-cpudetect \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
-			--extra-cflags="-I$(targetprefix)/usr/include" \
-			--extra-ldflags="-L$(targetprefix)/usr/lib" \
 			--target-os=linux \
 			--arch=sh4 \
 			--prefix=/usr \
