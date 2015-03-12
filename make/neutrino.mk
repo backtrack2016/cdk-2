@@ -864,7 +864,7 @@ $(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-github
 	[ -d "$(archivedir)/neutrino-mp-fs.git" ] && \
 	(cd $(archivedir)/neutrino-mp-fs.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp-fs.git" ] || \
-	git clone https://github.com/Frankenstone/neutrino-mp-fs $(archivedir)/neutrino-mp-fs.git; \
+	git clone https://github.com/fs-basis/neutrino-mp-fs $(archivedir)/neutrino-mp-fs.git; \
 	cp -ra $(archivedir)/neutrino-mp-fs.git $(sourcedir)/neutrino-mp-fs; \
 	cp -ra $(sourcedir)/neutrino-mp-fs $(sourcedir)/neutrino-mp-fs.org
 	for i in $(FS_NEUTRINO_PATCHES); do \
