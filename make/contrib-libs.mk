@@ -63,6 +63,22 @@ $(D)/luacurl: $(D)/bootstrap $(D)/lua @DEPENDS_luacurl@
 	touch $@
 
 #
+# luacurl2
+#
+$(D)/luacurl2: $(D)/bootstrap $(D)/libcurl $(D)/lua @DEPENDS_luacurl2@
+	@PREPARE_luacurl2@
+	[ -d "$(archivedir)/luacurl2.git" ] && \
+	(cd $(archivedir)/luacurl2.git; git pull ; cd "$(buildprefix)";); \
+	cd @DIR_luacurl2@ && \
+		$(MAKE) CC=$(target)-gcc LDFLAGS="-L$(targetprefix)/usr/lib" \
+			LIBDIR=$(targetprefix)/usr/lib \
+			LUA_INC=$(targetprefix)/usr/include \
+		&& \
+		@INSTALL_luacurl2@
+	@CLEANUP_luacurl2@
+	touch $@
+
+#
 # luaexpat
 #
 $(D)/luaexpat: $(D)/bootstrap $(D)/lua $(D)/libexpat @DEPENDS_luaexpat@
@@ -905,10 +921,9 @@ FFMPEG_EXTRA = --disable-iconv
 LIBXML2 = libxml2
 endif
 
-$(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2) $(LIBRTMPDUMP) @DEPENDS_ffmpeg@
+$(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
-		$(BUILDENV) \
 		./configure \
 			--disable-ffserver \
 			--disable-ffplay \
@@ -962,6 +977,8 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--enable-muxer=ogg \
 			\
 			--disable-parsers \
+			--enable-parser=aac \
+			--enable-parser=aac_latm \
 			--enable-parser=ac3 \
 			--enable-parser=dca \
 			--enable-parser=dvbsub \
@@ -976,6 +993,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--enable-parser=vorbis \
 			\
 			--disable-encoders \
+			--enable-encoder=aac \
 			--enable-encoder=h261 \
 			--enable-encoder=h263 \
 			--enable-encoder=h263p \
@@ -986,6 +1004,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--enable-encoder=png \
 			\
 			--disable-decoders \
+			--enable-decoder=aac \
 			--enable-decoder=dca \
 			--enable-decoder=dvbsub \
 			--enable-decoder=dvdsub \
@@ -1018,6 +1037,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--enable-decoder=xsub \
 			\
 			--disable-demuxers \
+			--enable-demuxer=aac \
 			--enable-demuxer=ac3 \
 			--enable-demuxer=avi \
 			--enable-demuxer=dts \
@@ -1059,6 +1079,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--disable-filters \
 			--enable-filter=scale \
 			\
+			--disable-postproc \
 			--disable-bsfs \
 			--disable-indevs \
 			--disable-outdevs \
@@ -1066,11 +1087,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(D)/libfdk_aac $(LIBXML2
 			--enable-zlib \
 			$(FFMPEG_EXTRA) \
 			--disable-static \
-			--enable-gpl \
-			--enable-nonfree \
 			--enable-openssl \
-			--enable-libfdk-aac \
-			--enable-decoder=libfdk_aac \
 			--enable-shared \
 			--enable-small \
 			--enable-stripping \
