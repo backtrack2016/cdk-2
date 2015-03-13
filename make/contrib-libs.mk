@@ -924,7 +924,6 @@ endif
 $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
-		$(BUILDENV) \
 		./configure \
 			--disable-ffserver \
 			--disable-ffplay \
@@ -1096,6 +1095,8 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(LIBXML2) $(LIBRTMPDUMP)
 			--disable-runtime-cpudetect \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
+			--extra-cflags="-I$(targetprefix)/usr/include -ffunction-sections -fdata-sections" \
+			--extra-ldflags="-L$(targetprefix)/usr/lib -Wl,--gc-sections,-lrt" \
 			--target-os=linux \
 			--arch=sh4 \
 			--prefix=/usr \
