@@ -2,7 +2,7 @@ diff --git a/libavcodec/aacdec.c b/libavcodec/aacdec.c
 index daec5bc..d20b945 100644
 --- a/libavcodec/aacdec.c
 +++ b/libavcodec/aacdec.c
-@@ -2354,7 +2354,7 @@ static int decode_extension_payload(AACContext *ac, GetBitContext *gb, int cnt,
+@@ -2346,7 +2346,7 @@ static int decode_extension_payload(AACContext *ac, GetBitContext *gb, int cnt,
   * @param   decode  1 if tool is used normally, 0 if tool is used in LTP.
   * @param   coef    spectral coefficients
   */

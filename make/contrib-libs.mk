@@ -924,6 +924,7 @@ endif
 $(D)/ffmpeg: $(D)/bootstrap $(D)/libcrypto $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
+		$(BUILDENV) \
 		./configure \
 			--disable-ffserver \
 			--disable-ffplay \
