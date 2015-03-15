@@ -59,6 +59,25 @@ BUILDENV := \
 	LDFLAGS="$(TARGET_LDFLAGS)" \
 	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
 
+BUILDENV_ALSA := \
+	unset CONFIG_SITE && \
+	CC=$(target)-gcc \
+	CXX=$(target)-g++ \
+	LD=$(target)-ld \
+	NM=$(target)-nm \
+	AR=$(target)-ar \
+	AS=$(target)-as \
+	RANLIB=$(target)-ranlib \
+	STRIP=$(target)-strip \
+	OBJCOPY=$(target)-objcopy \
+	OBJDUMP=$(target)-objdump \
+	LN_S="ln -s" \
+	CFLAGS="-pipe -Os -I$(targetprefix)/usr/include" \
+	CPPFLAGS="-pipe -Os -I$(targetprefix)/usr/include" \
+	CXXFLAGS="-pipe -Os -I$(targetprefix)/usr/include" \
+	LDFLAGS="-Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/usr/lib -L$(targetprefix)/lib" \
+	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
+
 MAKE_OPTS := \
 	CC=$(target)-gcc \
 	CXX=$(target)-g++ \

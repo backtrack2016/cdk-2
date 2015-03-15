@@ -2150,7 +2150,7 @@ $(D)/libcap: $(D)/bootstrap @DEPENDS_libcap@
 $(D)/libalsa: $(D)/bootstrap @DEPENDS_libalsa@
 	@PREPARE_libalsa@
 	cd @DIR_libalsa@ && \
-		$(BUILDENV) \
+		$(BUILDENV_ALSA) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
