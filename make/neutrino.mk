@@ -108,7 +108,7 @@ libstb-hal-github-old-distclean:
 
 ################################################################################
 #
-# libstb-hal-github
+# libstb-hal-cst-next
 #
 NEUTRINO_MP_LIBSTB_CST_NEXT_PATCHES =
 
@@ -531,17 +531,17 @@ NEUTRINO_HD2_PATCHES =
 $(D)/neutrino-hd2-exp.do_prepare: | $(NEUTRINO_DEPS) $(NEUTRINO_DEPS2) $(MEDIAFW_DEP) libflac
 	rm -rf $(sourcedir)/nhd2-exp
 	rm -rf $(sourcedir)/nhd2-exp.org
-	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
-	(cd $(archivedir)/neutrino-hd2-exp.svn; svn up ; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] || \
-	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(archivedir)/neutrino-hd2-exp.svn; \
-	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(sourcedir)/nhd2-exp; \
+	[ -d "$(archivedir)/neutrino-hd2-exp.git" ] && \
+	(cd $(archivedir)/neutrino-hd2-exp.git; git pull ; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-hd2-exp.git" ] || \
+	https://github.com/mohousch/neutrinohd2.git $(archivedir)/neutrino-hd2-exp.git; \
+	cp -ra $(archivedir)/neutrino-hd2-exp.git $(sourcedir)/nhd2-exp; \
+	(cd $(sourcedir)/nhd2-exp; git checkout nhd2-exp; cd "$(buildprefix)";); \
 	cp -ra $(sourcedir)/nhd2-exp $(sourcedir)/nhd2-exp.org
 	for i in $(NEUTRINO_HD2_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
 		cd $(sourcedir)/nhd2-exp && patch -p1 -i $$i; \
 	done;
-	touch $@
 
 $(sourcedir)/nhd2-exp/config.status:
 	cd $(sourcedir)/nhd2-exp && \
@@ -613,7 +613,7 @@ yaud-neutrino-mp-tangos-all: yaud-none lirc \
 #
 NEUTRINO_MP_TANGOS_PATCHES =
 
-$(D)/neutrino-mp-tangos.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-github
+$(D)/neutrino-mp-tangos.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-mp-tangos
 	rm -rf $(sourcedir)/neutrino-mp-tangos.org
 	rm -rf $(N_OBJDIR)
@@ -650,8 +650,8 @@ $(D)/neutrino-mp-tangos.config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/tuxbox/plugins \
-			--with-stb-hal-includes=$(sourcedir)/libstb-hal-github/include \
-			--with-stb-hal-build=$(sourcedir)/libstb-hal-github \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-cst-next/include \
+			--with-stb-hal-build=$(sourcedir)/libstb-hal-cst-next \
 			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			CPPFLAGS="$(N_CPPFLAGS)"
@@ -659,8 +659,8 @@ $(D)/neutrino-mp-tangos.config.status:
 $(sourcedir)/neutrino-mp-tangos/src/gui/version.h:
 	@rm -f $@; \
 	echo '#define BUILT_DATE "'`date`'"' > $@
-	@if test -d $(sourcedir)/libstb-hal-github ; then \
-		pushd $(sourcedir)/libstb-hal-github ; \
+	@if test -d $(sourcedir)/libstb-hal-cst-next ; then \
+		pushd $(sourcedir)/libstb-hal-cst-next ; \
 		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
 		pushd $(sourcedir)/neutrino-mp-tangos ; \
