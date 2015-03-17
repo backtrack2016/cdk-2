@@ -750,7 +750,7 @@ $(D)/neutrino-mp-fs.config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/tuxbox/plugins \
-			--with-stb-hal-includes=$(sourcedir)/libstb-hal-github/include \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-next/include \
 			--with-stb-hal-build=$(LH_OBJDIR) \
 			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
