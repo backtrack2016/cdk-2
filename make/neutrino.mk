@@ -711,7 +711,7 @@ yaud-neutrino-mp-fs-plugins: yaud-none lirc \
 
 FS_NEUTRINO_PATCHES = 
 
-$(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-github
+$(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-mp-fs
 	rm -rf $(sourcedir)/neutrino-mp-fs.org
 	rm -rf $(N_OBJDIR)
