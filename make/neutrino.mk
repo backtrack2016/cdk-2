@@ -759,8 +759,8 @@ $(D)/neutrino-mp-fs.config.status:
 $(sourcedir)/neutrino-mp-fs/src/gui/version.h:
 	@rm -f $@; \
 	echo '#define BUILT_DATE "'`date`'"' > $@
-	@if test -d $(sourcedir)/libstb-hal-github ; then \
-		pushd $(sourcedir)/libstb-hal-github ; \
+	@if test -d $(sourcedir)/llibstb-hal-cst-next ; then \
+		pushd $(sourcedir)/libstb-hal-cst-next ; \
 		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
 		pushd $(sourcedir)/neutrino-mp-fs ; \
