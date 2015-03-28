@@ -802,9 +802,9 @@ endif
 	if [ -e $(targetprefix)/usr/share/fonts/neutrino.ttf ]; then \
 		cp -aR $(targetprefix)/usr/share/fonts/neutrino.ttf $(prefix)/release/usr/share/fonts; \
 	fi
-#	if [ -e $(targetprefix)/usr/share/fonts/micron.ttf ]; then \
-#		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release/usr/share/fonts; \
-#	fi
+	if [ -e $(targetprefix)/usr/share/fonts/micron.ttf ]; then \
+		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release/usr/share/fonts; \
+	fi
 	if [ -e $(targetprefix)/usr/share/fonts/tuxtxt.ttf ]; then \
 		cp -aR $(targetprefix)/usr/share/fonts/tuxtxt.ttf $(prefix)/release/usr/share/fonts; \
 	fi
