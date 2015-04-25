@@ -18,7 +18,7 @@ libstb-hal-github-old-diff :
 # STB-HAL from github
 NEUTRINO_MP_LIBSTB_GH_OLD_PATCHES += 
 
-# Neutrino MP from github
+# Neutrino MP CST NEXT from github
 NEUTRINO_MP_LIBSTB_CST_NEXT_PATCHES += 
 NEUTRINO_MP_CST_NEXT_PATCHES += 
 
