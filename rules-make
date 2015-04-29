@@ -53,7 +53,7 @@ libgif_e2;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
 libgif;5.0.6;giflib-5.0.6;giflib-5.0.6.tar.bz2;extract:giflib-5.0.6.tar.bz2
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
 libjpeg;8d;jpeg-8d;jpegsrc.v8d.tar.gz:jpeg.patch;extract:jpegsrc.v8d.tar.gz;patch:jpeg.patch
-libjpeg_turbo;1.2.1;libjpeg-turbo-1.2.1;libjpeg-turbo-1.2.1.tar.gz;extract:libjpeg-turbo-1.2.1.tar.gz
+libjpeg_turbo;1.4.0;libjpeg-turbo-1.4.0;libjpeg-turbo-1.4.0.tar.gz;extract:libjpeg-turbo-1.4.0.tar.gz
 libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz2
 libpng;1.6.16;libpng-1.6.16;libpng-1.6.16.tar.gz;extract:libpng-1.6.16.tar.gz;patch:libpng-1.6.16.patch
 libtiff;4.0.3;tiff-4.0.3;tiff-4.0.3.tar.gz;extract:tiff-4.0.3.tar.gz
@@ -139,6 +139,7 @@ taglib;1.8;taglib-1.8;taglib-1.8.tar.gz;extract:taglib-1.8.tar.gz
 libxml2;2.8.0;libxml2-2.8.0;libxml2-2.8.0.tar.gz;extract:libxml2-2.8.0.tar.gz
 libxml2_e2;2.9.0;libxml2-2.9.0;libxml2-2.9.0.tar.gz;extract:libxml2-2.9.0.tar.gz;patch:libxml2-2.9.0.patch
 libxslt;1.1.28;libxslt-1.1.28;libxslt-1.1.28.tar.gz;extract:libxslt-1.1.28.tar.gz
+pugixml;1.6;pugixml-1.6;pugixml-1.6.tar.gz;extract:pugixml-1.6.tar.gz
 
 #
 # contrib apps
@@ -253,12 +254,13 @@ libevent;2.0.20-stable;libevent-2.0.20-stable;libevent-2.0.20-stable.tar.gz;extr
 libnfsidmap;0.25;libnfsidmap-0.25;libnfsidmap-0.25.tar.gz;extract:libnfsidmap-0.25.tar.gz
 libsoup;2.33.90;libsoup-2.33.90;libsoup-2.33.90.tar.gz;extract:libsoup-2.33.90.tar.gz
 vsftpd;3.0.2;vsftpd-3.0.2;vsftpd-3.0.2.tar.gz:vsftpd_3.0.2.patch;extract:vsftpd-3.0.2.tar.gz;patch:vsftpd_3.0.2.patch
-ntp;4.2.6p5;ntp-4.2.6p5;ntp-4.2.6p5.tar.gz;extract:ntp-4.2.6p5.tar.gz;patch:ntp-4.2.6p5.patch
+ntp;4.2.8;ntp-4.2.8;ntp-4.2.8.tar.gz;extract:ntp-4.2.8.tar.gz;patch:ntp-4.2.8.patch
 samba;3.6.12;samba-3.6.12;samba-3.6.12.tar.gz:samba-3.6.12.patch;extract:samba-3.6.12.tar.gz;patch:samba-3.6.12.patch
 netio;1.26;netio126;netio126.zip;extract:netio126.zip:netio126
 lighttpd;1.4.15;lighttpd-1.4.15;lighttpd-1.4.15.tar.gz;extract:lighttpd-1.4.15.tar.gz
 zd1211;2_15_0_0;ZD1211LnxDrv_2_15_0_0;zd1211lnxdrv_2_15_0_0.tar.gz:zd1211.patch;extract:zd1211lnxdrv_2_15_0_0.tar.gz;patch:zd1211.patch
 wireless_tools;29;wireless_tools.29;wireless_tools.29.tar.gz;extract:wireless_tools.29.tar.gz;patch:wireless-tools.patch
+libnl;2.0;libnl-2.0;libnl-2.0.tar.gz;extract:libnl-2.0.tar.gz
 wpa_supplicant;0.7.3;wpa_supplicant-0.7.3;wpa_supplicant-0.7.3.tar.gz;extract:wpa_supplicant-0.7.3.tar.gz
 #wpa_supplicant;1.0;wpa_supplicant-1.0;wpa_supplicant-1.0.tar.gz;extract:wpa_supplicant-1.0.tar.gz
 ethtool;6;ethtool-6;ethtool-6.tar.gz;extract:ethtool-6.tar.gz
