@@ -78,11 +78,6 @@ BUILDENV_ALSA := \
 	LDFLAGS="-Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/usr/lib -L$(targetprefix)/lib" \
 	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
 
-CONFIGURE_ALSA = \
-   test -f ./configure || ./autogen.sh && \
-   $(BUILDENV_ALSA) \
-   ./configure $(CONFIGURE_OPTS)
-
 CONFIGURE_OPTS = \
 	--build=$(build) --host=$(target)
 
@@ -91,6 +86,10 @@ CONFIGURE = \
 	$(BUILDENV) \
 	./configure $(CONFIGURE_OPTS)
 
+CONFIGURE_ALSA = \
+	test -f ./configure || ./autogen.sh && \
+	$(BUILDENV_ALSA) \
+	./configure $(CONFIGURE_OPTS)
 
 MAKE_OPTS := \
 	CC=$(target)-gcc \
