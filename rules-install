@@ -87,7 +87,7 @@ lirc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/liblirc_client.l
 libsigc_e2;rewrite-pkgconfig:sigc++-1.2.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libsigc-1.2.la
 libsigc;rewrite-pkgconfig:sigc++-2.0.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libsigc-2.0.la;rewrite-dependency:TARGET/usr/lib/libsigc-2.0.la
 glib2;rewrite-pkgconfig:glib-2.0.pc:gmodule-2.0.pc:gio-2.0.pc:gio-unix-2.0.pc:gmodule-export-2.0.pc:gmodule-no-export-2.0.pc:gobject-2.0.pc:gthread-2.0.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libglib-2.0.la:TARGET/usr/lib/libgmodule-2.0.la:TARGET/usr/lib/libgio-2.0.la:TARGET/usr/lib/libgobject-2.0.la:TARGET/usr/lib/libgthread-2.0.la;rewrite-dependency:TARGET/usr/lib/libgmodule-2.0.la:TARGET/usr/lib/libgio-2.0.la:TARGET/usr/lib/libgobject-2.0.la:TARGET/usr/lib/libgthread-2.0.la
-libffi;make:install:DESTDIR=TARGET
+libffi;rewrite-pkgconfig:libffi/libffi.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libffi.la
 orc;rewrite-pkgconfig:orc-0.4.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/liborc-0.4.la:TARGET/usr/lib/liborc-test-0.4.la;rewrite-dependency:TARGET/usr/lib/liborc-test-0.4.la
 libiconv;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libiconv.la
 libmng;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libmng.la;rewrite-dependency:TARGET/usr/lib/libmng.la
@@ -205,13 +205,13 @@ libdpfax;make:install:DESTDIR=TARGET
 # File Systems and Disk Management
 #
 dosfstools;make:install:PREFIX=TARGET
-e2fsprogs;rewrite-pkgconfig:lib/blkid/blkid.pc:lib/et/com_err.pc:lib/e2p/e2p.pc:lib/ext2fs/ext2fs.pc:lib/quota/quota.pc:lib/ss/ss.pc:lib/uuid/uuid.pc;make:install:DESTDIR=TARGET
+e2fsprogs;rewrite-pkgconfig:lib/et/com_err.pc:lib/e2p/e2p.pc:lib/ext2fs/ext2fs.pc:lib/quota/quota.pc:lib/ss/ss.pc;make:install:DESTDIR=TARGET;rewrite-pkgconfig:TARGET/usr/lib/pkgconfig/blkid.pc:TARGET/usr/lib/pkgconfig/uuid.pc
 fdisk;make:install:DESTDIR=TARGET
 fuse;rewrite-pkgconfig:fuse.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libfuse.la
 hddtemp;make:install:DESTDIR=TARGET
 hdparm;make:install:DESTDIR=TARGET
-jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGET
-lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/usr/share/man:DESTDIR=TARGET
+jfsutils;make:install:mandir=/.remove:DESTDIR=TARGET
+lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/.remove:DESTDIR=TARGET
 sdparm;make:install:DESTDIR=TARGET
 parted;make:install
 utillinux;make:install:DESTDIR=TARGET
@@ -232,7 +232,7 @@ ntp;make:install:DESTDIR=TARGET
 samba;make:install:DESTDIR=TARGET
 netio;install:-m755:netio:TARGET/usr/bin;install:-m755:bin/linux-i386:HOST/bin/netio
 lighttpd;make:install:DESTDIR=TARGET
-wireless_tools;make:install:INSTALL_MAN=TARGET/usr/share/man:PREFIX=TARGET/usr
+wireless_tools;make:install:INSTALL_MAN=TARGET/.remove:PREFIX=TARGET/usr
 libnl;make:install:DESTDIR=TARGET
 wpa_supplicant;make:install:BINDIR=/usr/sbin:DESTDIR=TARGET
 ethtool;make:install:DESTDIR=TARGET
