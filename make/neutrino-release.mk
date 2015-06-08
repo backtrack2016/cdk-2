@@ -673,14 +673,14 @@ release_neutrino_base:
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release/sbin/ && \
 	ln -sf ../../bin/busybox $(prefix)/release/usr/bin/ether-wake && \
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
-#if !ENABLE_UFS910
+if !ENABLE_UFS910
 if !ENABLE_UFS922
 	cp -dp $(targetprefix)/sbin/jfs_fsck $(prefix)/release/sbin/ && \
 	ln -sf /sbin/jfs_fsck $(prefix)/release/sbin/fsck.jfs && \
 	cp -dp $(targetprefix)/sbin/jfs_mkfs $(prefix)/release/sbin/ && \
 	ln -sf /sbin/jfs_mkfs $(prefix)/release/sbin/mkfs.jfs && \
 	cp -dp $(targetprefix)/sbin/jfs_tune $(prefix)/release/sbin/
-#endif
+endif
 endif
 
 	cp -dp $(buildprefix)/root/release/inittab$(if $(FORTIS_HDBOX)$(OCTAGON1008)$(CUBEREVO)$(CUBEREVO_MINI2)$(CUBEREVO_2000HD),_ttyAS1) $(prefix)/release/etc/inittab
