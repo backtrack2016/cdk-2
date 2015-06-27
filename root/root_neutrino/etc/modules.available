@@ -3,6 +3,7 @@
 #
 #
 cec(activemode=1 deviceName=DuckBox deviceType=3) # HDMI CEC
+<<<<<<< HEAD:root/etc/modules.available
 #rt2500usb         # Ralink RT2500 USB WLAN
 #rt2870sta         # Ralink RT2870 USB WLAN
 #rt3070sta         # Ralink RT3070 USB WLAN
@@ -17,4 +18,3 @@ tun                # TUN network device
 cifs               # CIFS network driver
 #jfs                # JFS file system driver
 #ntfs               # NTFS file system driver (ro)
-
