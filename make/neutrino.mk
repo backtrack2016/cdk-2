@@ -735,7 +735,7 @@ $(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	cp -ra $(sourcedir)/neutrino-mp-fs $(sourcedir)/neutrino-mp-fs.org
 	for i in $(FS_NEUTRINO_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
-		cd $(sourcedir)/neutrino-mp-fs && patch -p1 -i $$i; \
+		set -e; cd $(sourcedir)/neutrino-mp-fs && patch -p1 -i $$i; \
 	done;
 	touch $@
 
