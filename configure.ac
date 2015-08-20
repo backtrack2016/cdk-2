@@ -573,8 +573,8 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 		TARGET_CFLAGS="$TARGET_CFLAGS -Os"
 		TARGET_LDFLAGS=""
 	fi
-	TARGET_LDFLAGS="$TARGET_LDFLAGS -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$targetprefix/usr/lib -L$targetprefix/usr/lib -L$targetprefix/lib"
-	TARGET_CFLAGS="$TARGET_CFLAGS -I$targetprefix/usr/include"
+	TARGET_LDFLAGS="$TARGET_LDFLAGS -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$targetprefix/usr/lib -L$targetprefix/usr/lib -L$targetprefix/lib -Wl,--gc-sections,-lrt"
+	TARGET_CFLAGS="$TARGET_CFLAGS -I$targetprefix/usr/include -ffunction-sections -fdata-sections"
 	TARGET_CXXFLAGS="$TARGET_CFLAGS"
 fi
 AC_SUBST(CFLAGS)
