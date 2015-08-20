@@ -13,7 +13,7 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
-NEUTRINO_DEPS  = bootstrap openssl libcurl libpng libjpeg libgif libfreetype
+NEUTRINO_DEPS  = bootstrap libcurl libpng libjpeg libgif libfreetype
 NEUTRINO_DEPS += ffmpeg lua luaexpat luacurl libdvbsipp libsigc libopenthreads libusb libalsa
 NEUTRINO_DEPS += $(EXTERNALLCD_DEP)
 
@@ -23,7 +23,7 @@ endif
 
 NEUTRINO_DEPS2 = libid3tag libmad libvorbisidec
 
-N_CFLAGS  = -Wall -W -Wshadow -g0 -pipe -Os -fno-strict-aliasing -D__user= -DCPU_FREQ -ffunction-sections -fdata-sections
+N_CFLAGS  = -Wall -W -Wshadow -g0 -pipe -Os -fno-strict-aliasing -DCPU_FREQ -ffunction-sections -fdata-sections
 
 N_CPPFLAGS = -I$(driverdir)/bpamem
 N_CPPFLAGS += -I$(targetprefix)/usr/include/

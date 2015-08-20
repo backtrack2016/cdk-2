@@ -8,8 +8,8 @@ yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 #
 # enigma2-pli-nightly
 #
-ENIGMA2_DEPS  = bootstrap libncurses openssl libcurl libid3tag libmad libpng libjpeg libgif_e2 libfreetype libfribidi libsigc_e2 libreadline
-ENIGMA2_DEPS += libexpat libdvbsipp python libxml2_e2 libxslt elementtree  lxml zope_interface twisted pyopenssl pythonwifi pilimaging
+ENIGMA2_DEPS  = bootstrap libncurses libcurl libid3tag libmad libpng libjpeg libgif_e2 libfreetype libfribidi libsigc_e2 libreadline
+ENIGMA2_DEPS += libexpat libdvbsipp python libxml2_e2 libxslt elementtree lxml zope_interface twisted pyopenssl pythonwifi pilimaging
 ENIGMA2_DEPS += pyusb pycrypto pythonmechanize libdreamdvd tuxtxt32bpp sdparm hotplug_e2 wpa_supplicant wireless_tools minidlna opkg ethtool
 ENIGMA2_DEPS += $(MEDIAFW_DEP) $(EXTERNALLCD_DEP)
 
@@ -39,20 +39,14 @@ $(D)/enigma2-pli-nightly.do_prepare: | $(ENIGMA2_DEPS)
 	echo "========================================================================================================"; \
 	echo " 1) Use your own e2 git dir without patchfile"; \
 	echo "========================================================================================================"; \
-	echo " 2) Tue, 17 Jun 2014 07:44 - E2 OpenPli gstreamer / libplayer3 b670ebecf90dc4651b2862ebf448bca370d69fef"; \
-	echo " 3) Mon, 30 Dec 2013 18:33 - E2 OpenPli gstreamer / libplayer3 715a3024ad7ae3e89dad039bfb8ae49350552c39"; \
-	echo " 4) Sun, 23 Feb 2014 10:05 - E2 OpenPli gstreamer / libplayer3 e858a47a49c4fd8cdf22b29ea7278e6b4a2bddae"; \
-	echo " 5) Tue, 25 Mar 2014 18:17 - E2 OpenPli gstreamer / libplayer3 7272840d7db98a88f5c8b2882cc78d7ddc04e5e6"; \
+	echo " 2) Mon, 17 Aug 2015 07:08 - E2 OpenPli gstreamer / libplayer3 cd5505a4b8aba823334032bb6fd7901557575455"; \
 	echo "========================================================================================================"; \
 	echo "Media Framework : $(MEDIAFW)"; \
 	echo "External LCD    : $(EXTERNALLCD)"; \
 	read -p "Select          : "; \
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION=""; \
-	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="b670ebecf90dc4651b2862ebf448bca370d69fef"; \
-	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="715a3024ad7ae3e89dad039bfb8ae49350552c39"; \
-	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="e858a47a49c4fd8cdf22b29ea7278e6b4a2bddae"; \
-	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="7272840d7db98a88f5c8b2882cc78d7ddc04e5e6"; \
+	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="cd5505a4b8aba823334032bb6fd7901557575455"; \
 	echo "Revision        : "$$REVISION; \
 	echo ""; \
 	if [ "$$REPLY" != "1" ]; then \
@@ -66,7 +60,7 @@ $(D)/enigma2-pli-nightly.do_prepare: | $(ENIGMA2_DEPS)
 		cp -ra $(archivedir)/enigma2-pli-nightly.git $(sourcedir)/enigma2-nightly; \
 		[ "$$REVISION" == "" ] || (cd $(sourcedir)/enigma2-nightly; git checkout "$$REVISION"; cd "$(buildprefix)";); \
 		cp -ra $(sourcedir)/enigma2-nightly $(sourcedir)/enigma2-nightly.org; \
-		cd $(sourcedir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"; \
+		set -e; cd $(sourcedir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"; \
 	fi
 	touch $@
 
@@ -85,6 +79,7 @@ $(sourcedir)/enigma2-pli-nightly/config.status:
 			--prefix=/usr \
 			--sysconfdir=/etc \
 			--with-boxtype=none \
+			--with-gstversion=1.0 \
 			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			PY_PATH=$(targetprefix)/usr \

@@ -19,7 +19,7 @@ $(D)/nfs_utils: $(D)/bootstrap $(D)/e2fsprogs $(NFS_UTILS_ADAPTED_ETC_FILES:%=ro
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done )
 	@CLEANUP_nfs_utils@
-	@touch $@
+	touch $@
 
 #
 # libevent
@@ -228,7 +228,7 @@ $(D)/wireless_tools: $(D)/bootstrap @DEPENDS_wireless_tools@
 #
 # libnl
 #
-$(D)/libnl: $(D)/bootstrap $(D)/openssl @DEPENDS_libnl@
+$(D)/libnl: $(D)/bootstrap $(OPENSSL) @DEPENDS_libnl@
 	@PREPARE_libnl@
 	cd @DIR_libnl@ && \
 		$(CONFIGURE) \
@@ -241,7 +241,7 @@ $(D)/libnl: $(D)/bootstrap $(D)/openssl @DEPENDS_libnl@
 #
 # wpa_supplicant
 #
-$(D)/wpa_supplicant: $(D)/bootstrap $(D)/openssl $(D)/wireless_tools @DEPENDS_wpa_supplicant@
+$(D)/wpa_supplicant: $(D)/bootstrap $(OPENSSL) $(D)/wireless_tools @DEPENDS_wpa_supplicant@
 	@PREPARE_wpa_supplicant@
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \
 		$(INSTALL) -m 644 $(buildprefix)/Patches/wpa_supplicant.config .config && \
