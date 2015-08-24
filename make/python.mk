@@ -95,7 +95,7 @@ $(D)/python: $(D)/bootstrap $(D)/host_python $(D)/libncurses $(D)/zlib $(OPENSSL
 $(D)/python_setuptools: $(D)/bootstrap $(D)/python @DEPENDS_python_setuptools@
 	@PREPARE_python_setuptools@
 	cd @DIR_python_setuptools@ && \
-		$(hostprefix)/bin/python ./setup.py build install --root=$(targetprefix) --prefix=/usr
+		$(PYTHON_INSTALL)
 	@CLEANUP_python_setuptools@
 	touch $@
 
@@ -120,7 +120,7 @@ $(D)/libxmlccwrap: $(D)/bootstrap $(D)/libxml2_e2 $(D)/libxslt @DEPENDS_libxmlcc
 $(D)/python_lxml: $(D)/bootstrap $(D)/python $(D)/python_setuptools @DEPENDS_python_lxml@
 	@PREPARE_python_lxml@
 	cd @DIR_python_lxml@ && \
-		$(PYTHON_BUILD)
+		$(PYTHON_BUILD) \
 			--with-xml2-config=$(hostprefix)/bin/xml2-config \
 			--with-xslt-config=$(hostprefix)/bin/xslt-config && \
 		$(PYTHON_INSTALL)
@@ -194,7 +194,7 @@ $(D)/python_cffi: $(D)/bootstrap $(D)/python $(D)/python_setuptools @DEPENDS_pyt
 #
 # python_enum34
 #
-$(D)/python_enum34: $(D)/bootstrap $(D)/python $(D)/python_setuptools $(D)/python_cffi @DEPENDS_python_enum34@
+$(D)/python_enum34: $(D)/bootstrap $(D)/python $(D)/python_setuptools @DEPENDS_python_enum34@
 	@PREPARE_python_enum34@
 	cd @DIR_python_enum34@ && \
 		$(PYTHON_INSTALL)
@@ -202,9 +202,19 @@ $(D)/python_enum34: $(D)/bootstrap $(D)/python $(D)/python_setuptools $(D)/pytho
 	touch $@
 
 #
+# python_pyasn1_modules
+#
+$(D)/python_pyasn1_modules: $(D)/bootstrap $(D)/python $(D)/python_setuptools @DEPENDS_python_pyasn1_modules@
+	@PREPARE_python_pyasn1_modules@
+	cd @DIR_python_pyasn1_modules@ && \
+		$(PYTHON_INSTALL)
+	@CLEANUP_python_pyasn1_modules@
+	touch $@
+
+#
 # python_pyasn1
 #
-$(D)/python_pyasn1: $(D)/bootstrap $(D)/python $(D)/python_setuptools $(D)/python_enum34 @DEPENDS_python_pyasn1@
+$(D)/python_pyasn1: $(D)/bootstrap $(D)/python $(D)/python_setuptools $(D)/python_pyasn1_modules @DEPENDS_python_pyasn1@
 	@PREPARE_python_pyasn1@
 	cd @DIR_python_pyasn1@ && \
 		$(PYTHON_INSTALL)
