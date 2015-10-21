@@ -2,7 +2,7 @@
 # diff helper
 #
 enigma2-nightly-patch \
-neutrino-mp-fs-diff \
+neutrino-mp-fs-patch \
 neutrino-mp-next-patch \
 neutrino-mp-tangos-patch \
 neutrino-mp-cst-next-patch \
