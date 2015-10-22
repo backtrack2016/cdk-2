@@ -113,7 +113,7 @@ libstb-hal-github-old-distclean:
 
 ################################################################################
 #
-# libstb-hal-cst-next
+# FS - libstb-hal-cst-next
 #
 NEUTRINO_MP_LIBSTB_CST_NEXT_PATCHES =
 
@@ -712,7 +712,7 @@ neutrino-mp-tangos-distclean:
 	rm -f $(D)/neutrino-mp-tangos*
 ################################################################################
 #
-# FS-Neutrino-gh-mp-next-cst
+# FS - neutrino-mp-fs
 #
 yaud-neutrino-mp-fs: yaud-none lirc \
 		boot-elf neutrino-mp-fs release_neutrino
