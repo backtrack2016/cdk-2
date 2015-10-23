@@ -714,6 +714,8 @@ neutrino-mp-tangos-distclean:
 #
 # FS - neutrino-mp-fs
 #
+# WebIF off => --disable-webif \
+#
 yaud-neutrino-mp-fs: yaud-none lirc \
 		boot-elf neutrino-mp-fs release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
@@ -752,7 +754,6 @@ $(D)/neutrino-mp-fs.config.status:
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
 			--disable-upnp \
-			--disable-webif \
 			--disable-fastscan \
 			--enable-ffmpegdec \
 			--enable-giflib \
