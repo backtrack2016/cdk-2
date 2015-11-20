@@ -724,6 +724,10 @@ yaud-neutrino-mp-fs-plugins: yaud-none lirc \
 		boot-elf neutrino-mp-fs neutrino-mp-plugins release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
+yaud-neutrino-mp-fs-xupnpd: yaud-none lirc \
+		boot-elf neutrino-mp-fs xupnpd release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
 FS_NEUTRINO_PATCHES = 
 
 $(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
