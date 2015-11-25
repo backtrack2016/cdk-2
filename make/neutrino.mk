@@ -113,7 +113,7 @@ libstb-hal-github-old-distclean:
 
 ################################################################################
 #
-# FS - libstb-hal-cst-next
+# fs-basis - libstb-hal-cst-next
 #
 NEUTRINO_MP_LIBSTB_CST_NEXT_PATCHES =
 
@@ -710,49 +710,50 @@ neutrino-mp-tangos-clean:
 neutrino-mp-tangos-distclean:
 	rm -rf $(N_OBJDIR)
 	rm -f $(D)/neutrino-mp-tangos*
+
 ################################################################################
 #
-# FS - neutrino-mp-fs
+# Frankenstone - neutrino-test
 #
 # WebIF off => --disable-webif \
 #
-yaud-neutrino-mp-fs: yaud-none lirc \
-		boot-elf neutrino-mp-fs release_neutrino
+yaud-neutrino-test: yaud-none lirc \
+		boot-elf neutrino-test release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-mp-fs-plugins: yaud-none lirc \
-		boot-elf neutrino-mp-fs neutrino-mp-plugins release_neutrino
+yaud-neutrino-test-plugins: yaud-none lirc \
+		boot-elf neutrino-test neutrino-mp-plugins release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-mp-fs-xupnpd: yaud-none lirc \
-		boot-elf neutrino-mp-fs xupnpd release_neutrino
+yaud-neutrino-test-xupnpd: yaud-none lirc \
+		boot-elf neutrino-test xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 FS_NEUTRINO_PATCHES = 
 
-$(D)/neutrino-mp-fs.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
-	rm -rf $(sourcedir)/neutrino-mp-fs
-	rm -rf $(sourcedir)/neutrino-mp-fs.org
+$(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
+	rm -rf $(sourcedir)/neutrino-test
+	rm -rf $(sourcedir)/neutrino-test.org
 	rm -rf $(N_OBJDIR)
-	[ -d "$(archivedir)/neutrino-mp-fs.git" ] && \
-	(cd $(archivedir)/neutrino-mp-fs.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/neutrino-mp-fs.git" ] || \
-	git clone https://github.com/fs-basis/neutrino.git $(archivedir)/neutrino-mp-fs.git; \
-	cp -ra $(archivedir)/neutrino-mp-fs.git $(sourcedir)/neutrino-mp-fs; \
-	cp -ra $(sourcedir)/neutrino-mp-fs $(sourcedir)/neutrino-mp-fs.org
+	[ -d "$(archivedir)/neutrino-test.git" ] && \
+	(cd $(archivedir)/neutrino-test.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-test.git" ] || \
+	git clone https://github.com/Frankenstone/neutrino-test.git $(archivedir)/neutrino-test.git; \
+	cp -ra $(archivedir)/neutrino-test.git $(sourcedir)/neutrino-test; \
+	cp -ra $(sourcedir)/neutrino-test $(sourcedir)/neutrino-test.org
 	for i in $(FS_NEUTRINO_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
-		set -e; cd $(sourcedir)/neutrino-mp-fs && patch -p1 -i $$i; \
+		set -e; cd $(sourcedir)/neutrino-test && patch -p1 -i $$i; \
 	done;
 	touch $@
 
-$(D)/neutrino-mp-fs.config.status:
+$(D)/neutrino-test.config.status:
 	rm -rf $(N_OBJDIR)
 	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR) && \
 	cd $(N_OBJDIR) && \
-		$(sourcedir)/neutrino-mp-fs/autogen.sh && \
+		$(sourcedir)/neutrino-test/autogen.sh && \
 		$(BUILDENV) \
-		$(sourcedir)/neutrino-mp-fs/configure \
+		$(sourcedir)/neutrino-test/configure \
 			--build=$(build) \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
@@ -778,28 +779,28 @@ $(D)/neutrino-mp-fs.config.status:
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
 
-$(sourcedir)/neutrino-mp-fs/src/gui/version.h:
+$(sourcedir)/neutrino-test/src/gui/version.h:
 	@rm -f $@; \
 	echo '#define BUILT_DATE "'`date`'"' > $@
 	@if test -d $(sourcedir)/libstb-hal-cst-next ; then \
 		pushd $(sourcedir)/libstb-hal-cst-next ; \
 		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
-		pushd $(sourcedir)/neutrino-mp-fs ; \
+		pushd $(sourcedir)/neutrino-test ; \
 		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
 		pushd $(buildprefix) ; \
 		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
-		echo '#define VCS "FS_BASE-rev'$$DDT_REV'_HAL-github-rev'$$HAL_REV'_FS-Neutrino-rev'$$NMP_REV'"' >> $@ ; \
+		echo '#define VCS "FS_BASE-rev'$$DDT_REV'_HAL-github-rev'$$HAL_REV'_FS-Neutrino-test-rev'$$NMP_REV'"' >> $@ ; \
 	fi
 
-$(D)/neutrino-mp-fs.do_compile: neutrino-mp-fs.config.status $(sourcedir)/neutrino-mp-fs/src/gui/version.h
-	cd $(sourcedir)/neutrino-mp-fs && \
+$(D)/neutrino-test.do_compile: neutrino-test.config.status $(sourcedir)/neutrino-test/src/gui/version.h
+	cd $(sourcedir)/neutrino-test && \
 		$(MAKE) -C $(N_OBJDIR) all
 	touch $@
 
-$(D)/neutrino-mp-fs: neutrino-mp-fs.do_prepare neutrino-mp-fs.do_compile
+$(D)/neutrino-test: neutrino-test.do_prepare neutrino-test.do_compile
 	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
 	rm -f $(targetprefix)/var/etc/.version
 	make $(targetprefix)/var/etc/.version
@@ -809,14 +810,123 @@ $(D)/neutrino-mp-fs: neutrino-mp-fs.do_prepare neutrino-mp-fs.do_compile
 	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
 	touch $@
 
-neutrino-mp-fs-clean:
-	rm -f $(D)/neutrino-mp-fs
-	rm -f $(sourcedir)/neutrino-mp-fs/src/gui/version.h
+neutrino-test-clean:
+	rm -f $(D)/neutrino-test
+	rm -f $(sourcedir)/neutrino-test/src/gui/version.h
 	cd $(N_OBJDIR) && \
 		$(MAKE) -C $(N_OBJDIR) distclean
 
-neutrino-mp-fs-distclean:
+neutrino-test-distclean:
 	rm -rf $(N_OBJDIR)
-	rm -f $(D)/neutrino-mp-fs*
+	rm -f $(D)/neutrino-test*
+
+################################################################################
+#
+# fs-basis - neutrino 
+#
+# WebIF off => --disable-webif \
+#
+yaud-neutrino: yaud-none lirc \
+		boot-elf neutrino release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-plugins: yaud-none lirc \
+		boot-elf neutrino neutrino-mp-plugins release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-xupnpd: yaud-none lirc \
+		boot-elf neutrino xupnpd release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+FS_NEUTRINO_PATCHES = 
+
+$(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
+	rm -rf $(sourcedir)/neutrino
+	rm -rf $(sourcedir)/neutrino.org
+	rm -rf $(N_OBJDIR)
+	[ -d "$(archivedir)/neutrino.git" ] && \
+	(cd $(archivedir)/neutrino.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino.git" ] || \
+	git clone https://github.com/fs-basis/neutrino.git $(archivedir)/neutrino.git; \
+	cp -ra $(archivedir)/neutrino.git $(sourcedir)/neutrino; \
+	cp -ra $(sourcedir)/neutrino $(sourcedir)/neutrino.org
+	for i in $(FS_NEUTRINO_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		set -e; cd $(sourcedir)/neutrino && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(D)/neutrino.config.status:
+	rm -rf $(N_OBJDIR)
+	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR) && \
+	cd $(N_OBJDIR) && \
+		$(sourcedir)/neutrino/autogen.sh && \
+		$(BUILDENV) \
+		$(sourcedir)/neutrino/configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--disable-upnp \
+			--disable-fastscan \
+			--enable-ffmpegdec \
+			--enable-giflib \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/tuxbox/plugins \
+			--with-iconsdir=/usr/share/tuxbox/neutrino/icons \
+			--with-localedir=/usr/share/tuxbox/neutrino/locale \
+			--with-private_httpddir=/usr/share/tuxbox/neutrino/httpd \
+			--with-themesdir=/usr/share/tuxbox/neutrino/themes \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-cst-next/include \
+			--with-stb-hal-build=$(LH_OBJDIR) \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(sourcedir)/neutrino/src/gui/version.h:
+	@rm -f $@; \
+	echo '#define BUILT_DATE "'`date`'"' > $@
+	@if test -d $(sourcedir)/libstb-hal-cst-next ; then \
+		pushd $(sourcedir)/libstb-hal-cst-next ; \
+		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(sourcedir)/neutrino ; \
+		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(buildprefix) ; \
+		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		echo '#define VCS "FS_BASE-rev'$$DDT_REV'_HAL-github-rev'$$HAL_REV'_FS-Neutrino-rev'$$NMP_REV'"' >> $@ ; \
+	fi
+
+$(D)/neutrino.do_compile: neutrino.config.status $(sourcedir)/neutrino/src/gui/version.h
+	cd $(sourcedir)/neutrino && \
+		$(MAKE) -C $(N_OBJDIR) all
+	touch $@
+
+$(D)/neutrino: neutrino.do_prepare neutrino.do_compile
+	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-clean:
+	rm -f $(D)/neutrino
+	rm -f $(sourcedir)/neutrino/src/gui/version.h
+	cd $(N_OBJDIR) && \
+		$(MAKE) -C $(N_OBJDIR) distclean
+
+neutrino-distclean:
+	rm -rf $(N_OBJDIR)
+	rm -f $(D)/neutrino*
 
 ################################################################################
