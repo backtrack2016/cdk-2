@@ -263,7 +263,7 @@ else
 	 cd ../flash/$BOXTYPE
 	 echo `cat $tempfile` | sudo -S ./make_flash.sh 2>&1 | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
 	fi
-	
+
 	cd $CURDIR
 	cleanup
 fi

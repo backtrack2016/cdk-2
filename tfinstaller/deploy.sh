@@ -287,12 +287,12 @@ EOF
   echo '   7'     > /dev/fpsmall
   echo 'HDD FMT'  > /dev/fplarge
   ln -s /proc/mounts /etc/mtab
-  
+
   fs="ext3"
   if [ "$useext2e2" = "1" ]; then
     fs="ext2"
   fi
-  
+
   mkfs.$fs -L MINI9 $ROOTFS
 
   if [ "$partition" = "1" ]; then
@@ -375,11 +375,11 @@ umount /mnt
 echo "Flashing U-Boot settings"
 echo '   3'     > /dev/fpsmall
 echo 'LOADER'   > /dev/fplarge
-dd if=/deploy/u-boot.mtd1 of=/dev/mtdblock1  
-if [ $? -ne 0 ]; then  
-  echo "FAIL" > /dev/fpsmall  
-  exit  
-fi 
+dd if=/deploy/u-boot.mtd1 of=/dev/mtdblock1
+if [ $? -ne 0 ]; then
+  echo "FAIL" > /dev/fpsmall
+  exit
+fi
 
 # Skip Flash MTD2 if keyword 'nomtd2' is specified in the control file
 if [ "$keepbootargs" != "1" ]; then
