@@ -17,7 +17,7 @@ fi
 
 if [ -e /dev/ttyAS1 ]; then
    rm -f /dev/ttyAS1
-fi 
+fi
 
 /etc/init.d/portmap start
 

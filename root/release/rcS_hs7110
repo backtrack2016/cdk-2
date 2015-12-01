@@ -126,7 +126,7 @@ showiframe -p /boot/bootlogo.mvi &
 stfbcontrol a 0
 
 echo "Init lircd (LOAD 2)"
-mknod /dev/rc c 147 1 
+mknod /dev/rc c 147 1
 mknod /dev/lnb c 149 0
 
 echo "Init smartcard cardreader"
@@ -227,7 +227,7 @@ do
          echo "ERROR"
          init 6;;
    esac
-done 
+done
 
 #never reached
 echo "REBOOT HS7110"

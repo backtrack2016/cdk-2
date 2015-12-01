@@ -25,7 +25,7 @@ insmod $MODDIR/e2_proc.ko
 
 if [ ! -e /var/etc/.firstboot ]; then
    echo "LOADING MODULES" > /dev/dbox/vfd
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
 
    echo "init AVS"
    insmod $MODDIR/avs.ko type=stv6418
@@ -58,7 +58,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmsysfs.ko
    insmod $MODDIR/stm_monitor.ko
    insmod $MODDIR/stmdvb.ko
-   
+
    insmod $MODDIR/player2.ko
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
@@ -126,7 +126,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   showiframe -p /var/boot/bootlogo.mvi &
 		   echo "0" > /proc/progress;;
      esac
-   done 
+   done
 fi
 echo "REBOOT IPBOX" > /dev/dbox/vfd
 echo "REBOOT IPBOX"

@@ -30,7 +30,7 @@ if [ -e $MODDIR/autofs4.ko ]; then
 fi
 
 if [ ! -e /var/etc/.firstboot ]; then
-   
+
    insmod $MODDIR/e2_proc.ko
 
    echo "Starting DEBUG Interface"
@@ -44,7 +44,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-sti7105.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:16m:pal:yuv:yuv;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd
 
    if [ ! -e /boot/audio.elf ]; then
@@ -78,7 +78,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	else
 		insmod $MODDIR/fe-core.ko box_type=0
 	fi
-    
+
 	echo "init drivers"
 	insmod $MODDIR/pti.ko
 	insmod $MODDIR/stm_monitor.ko

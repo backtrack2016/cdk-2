@@ -45,7 +45,7 @@ if [ ! -e /var/etc/.firstboot ]; then
         VIDEO=hdmi_component
     fi
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
 
    if [ ! -e /boot/audio.elf ]; then
       echo "FW MISSING!!!"
@@ -142,5 +142,5 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            init 6;;
       esac
-   done 
+   done
 fi

@@ -254,7 +254,7 @@ void processFile(int tfd, ulong loadAddr, ulong entryAddr, int fileSize)
 		fwrite(header, 1, sizeof(header), outfile);
 	}
 
-	allocate_memory();  
+	allocate_memory();
 
 	// prepare binary header with offsets
 	setBinaryHeader(loadAddr, entryAddr, fileSize);
@@ -266,11 +266,11 @@ void processFile(int tfd, ulong loadAddr, ulong entryAddr, int fileSize)
 			break;
 		}
 		compsize = 0; origsize = 0; unpackable = 0;
-		init_slide(); 
+		init_slide();
 		huf_encode_start();
 		remainder = fread_crc(&text[DICSIZ], DICSIZ + MAXMATCH, infile);
 		if(remainder < 1)
-		{	
+		{
 			break;
 		}
 		matchlen = 0;

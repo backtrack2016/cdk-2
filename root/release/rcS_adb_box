@@ -52,7 +52,7 @@ if [ ! -e /var/etc/.firstboot ]; then
         VIDEO=hdmi_component
     fi
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd
 
    if [ ! -e /boot/audio.elf ]; then
@@ -68,7 +68,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/embxmailbox.ko mailbox0=0xb9211000:136:set2 mailbox1=0xb9212000:0 ;
    insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:16:16:0:1024:0xa4000000:0x10000000 ;
    insmod $MODDIR/mme_host.ko transport0=shm
-   
+
    if [ $boxtype == 'bsla' ]; then
     echo "init Cooler"
     insmod $MODDIR/cooler.ko
@@ -91,7 +91,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stm_v4l2.ko
    insmod $MODDIR/pseudocard.ko
    insmod $MODDIR/cec_ctrl.ko
-  
+
     if [ $boxtype == 'bska' ] || [ $boxtype == 'bxzb' ]; then
          echo "init frontends bialy"
          insmod $MODDIR/fe-core.ko
@@ -118,7 +118,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	insmod $MODDIR/pti.ko
 	insmod $MODDIR/stmdvb.ko
 	insmod $MODDIR/stm_monitor.ko
-   fi	
+   fi
    insmod $MODDIR/player2.ko
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
@@ -189,7 +189,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "0" > /proc/progress
 		   showiframe -p /var/boot/bootlogo.mvi &;;
       esac
-   done 
+   done
  fi
 fi
 

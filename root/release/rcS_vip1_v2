@@ -29,7 +29,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-stx7109c3.ko
    insmod $MODDIR/stmfb.ko display0=720x576-32@60:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "MODULES" >/dev/vfd
 
    echo "load a/v firmware"
@@ -61,7 +61,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		insmod $MODDIR/stmvbi.ko
    fi
    insmod $MODDIR/pseudocard.ko
-   
+
    echo "init frontends"
    #demodelator type: stb0899, stv090x, cx24116, ce6353, tda10023(default stb0899)
    #tuner type: stb6100, stv6110x, sharp7306, sharp6465, lg031(default stb6100)
@@ -77,7 +77,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    else
     insmod $MODDIR/stmdvb.ko
     insmod $MODDIR/stm_monitor.ko
-   fi	
+   fi
    insmod $MODDIR/player2.ko
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
@@ -95,10 +95,10 @@ if [ ! -e /var/etc/.firstboot ]; then
    mkdir -p /var/run/lirc
    /usr/bin/lircd
 
-   mknod /dev/rc c 147 1 
+   mknod /dev/rc c 147 1
    mknod /dev/sci0 c 169 0
-   mknod /dev/sci1 c 169 1 
-   
+   mknod /dev/sci1 c 169 1
+
    /bin/evremote2 vip2 &
 
    #DVD-PLAYER EXIT-TASTE LOAD OR EJECT DVD
@@ -142,7 +142,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
                    reboot;;
       esac
-   done 
+   done
 fi
 
 #never reached

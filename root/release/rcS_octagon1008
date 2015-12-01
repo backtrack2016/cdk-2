@@ -30,7 +30,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-stx7109c3.ko
    insmod $MODDIR/stmfb.ko display0=720x576-32@60:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd
 
    echo "STB7100-VIDEO"
@@ -96,7 +96,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/simu_button.ko
    insmod $MODDIR/nuvoton.ko
 
-   mknod /dev/rc c 147 1 
+   mknod /dev/rc c 147 1
 
    #params:
    #period
@@ -144,7 +144,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            echo "0" > /proc/progress;;
       esac
-   done 
+   done
 fi
 
 #never reached

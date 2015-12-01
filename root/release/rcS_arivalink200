@@ -39,7 +39,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "7683" > /proc/cpu_frequ/pll0_ndiv_mdiv
 
    echo "LOADING MODULES" > /dev/dbox/vfd
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
 
    echo "init AVS"
    insmod $MODDIR/avs.ko type=fake_avs #avs_none
@@ -71,7 +71,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmsysfs.ko
    insmod $MODDIR/stm_monitor.ko
    insmod $MODDIR/stmdvb.ko
-   
+
    insmod $MODDIR/player2.ko
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
@@ -96,7 +96,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    insmod $MODDIR/simu_button.ko
    /bin/evremote2 useLircdName &
-  
+
    stfbcontrol a 255
    until false
    do
@@ -126,5 +126,5 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   #exit 0
 		   ;;
      esac
-   done 
+   done
 fi

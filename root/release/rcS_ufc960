@@ -28,7 +28,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-stx7109c3.ko
    insmod $MODDIR/stmfb.ko display0=720x576-32@60:10m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -c
    fp_control -t "LOADING MODULES"
 
@@ -87,7 +87,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/boxtype.ko
    insmod $MODDIR/simu_button.ko
 
-   mknod /dev/rc c 147 1 
+   mknod /dev/rc c 147 1
 
    #params:
    #toggleFeedback 0 = false, 1 = true
@@ -137,7 +137,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            init 6;;
       esac
-   done 
+   done
 fi
 
 #never reached

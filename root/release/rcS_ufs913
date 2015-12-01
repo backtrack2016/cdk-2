@@ -50,7 +50,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-sti7105.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:15m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -t "LOADING MODULES"
 
    if [ ! -e /boot/audio.elf ]; then
@@ -179,7 +179,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            init 6;;
       esac
-   done 
+   done
 fi
 
 #never reached

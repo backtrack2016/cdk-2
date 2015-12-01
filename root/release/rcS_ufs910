@@ -2,7 +2,7 @@
 
 MODDIR=/lib/modules
 
-insmod $MODDIR/vfd.ko       
+insmod $MODDIR/vfd.ko
 echo "    Welcome     " > /dev/vfd
 
 if [ -e /var/etc/.firstboot ]; then
@@ -37,9 +37,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    #used by fp_control! otherwise crash
    insmod $MODDIR/boxtype.ko
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -c
-   
+
    echo "init embxshell"
    insmod $MODDIR/embxshell.ko
    echo "init embxmailbox"
@@ -152,7 +152,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            exit 6;;
       esac
-   done 
+   done
 fi
 
 #never reached

@@ -34,7 +34,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-sti7105.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:15m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -t "LOADING MODULES"
 
    if [ ! -e /boot/audio.elf ]; then
@@ -76,7 +76,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/avl2108.ko
 #   insmod $MODDIR/tda10024.ko
 
-   insmod $MODDIR/starci.ko 
+   insmod $MODDIR/starci.ko
    if [ $player=='player191' ]; then
       # Full feature pti
       insmod $MODDIR/pti.ko waitMS=20 videoMem=4096
@@ -109,7 +109,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/silencegen.ko
 
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
+   mknod /dev/bpamem c 153 0
 
    showiframe -p /var/boot/bootlogo.mvi &
    stfbcontrol a 0
@@ -117,7 +117,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "init frontpanel"
    insmod $MODDIR/simu_button.ko
 
-   mknod /dev/rc c 147 1 
+   mknod /dev/rc c 147 1
 
    #params:
    #period
@@ -139,19 +139,19 @@ if [ ! -e /var/etc/.firstboot ]; then
    /usr/sbin/inetd
 
    NFS=`grep -c nfs /proc/cmdline`
-   if [ "$NFS" -eq "1" ]; then 
-      echo "Booting from nfs, don't set network" 
-   else 
-      if [ -e /etc/network/interfaces ]; then 
-	 ip addr flush eth0 
-	 /etc/init.d/networking stop 
+   if [ "$NFS" -eq "1" ]; then
+      echo "Booting from nfs, don't set network"
+   else
+      if [ -e /etc/network/interfaces ]; then
+	 ip addr flush eth0
+	 /etc/init.d/networking stop
 	 DHCP=`grep -c dhcp /etc/network/interfaces`
-	 if [ "$DHCP" -eq "1" ]; then 
+	 if [ "$DHCP" -eq "1" ]; then
 	    echo "Starting dhcp"
-            /etc/init.d/udhcpc start 
-	 fi 
-	 /etc/init.d/networking start 
-      fi 
+            /etc/init.d/udhcpc start
+	 fi
+	 /etc/init.d/networking start
+      fi
    fi
 
    echo "LOADING e2" > /dev/vfd
@@ -181,7 +181,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   echo "ERROR"
            init 6;;
       esac
-   done 
+   done
 fi
 
 #never reached
