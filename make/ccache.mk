@@ -2,7 +2,7 @@
 #  ccache
 #
 # You can use ccache for compiling if it is installed on your system or Tuxbox-CDK in ~/cdk/bin.
-# With this rule you can install ccache independ from your system. 
+# With this rule you can install ccache independ from your system.
 # Use <make ccache> for installing in cdk/bin. This own ccache-binary is preferred from configure.
 # Isn't ccache installed on your system, you can also install later, but you must configure again.
 # Most distributions contain the required packages or

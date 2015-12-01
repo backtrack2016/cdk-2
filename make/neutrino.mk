@@ -575,7 +575,7 @@ yaud-neutrino-test-xupnpd: yaud-none lirc \
 		boot-elf neutrino-test xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-FS_NEUTRINO_PATCHES = 
+FS_NEUTRINO_PATCHES =
 
 $(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-test
@@ -668,7 +668,7 @@ neutrino-test-distclean:
 
 ################################################################################
 #
-# fs-basis - neutrino 
+# fs-basis - neutrino
 #
 # WebIF off => --disable-webif \
 #
@@ -684,7 +684,7 @@ yaud-neutrino-xupnpd: yaud-none lirc \
 		boot-elf neutrino xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-FS_NEUTRINO_PATCHES = 
+FS_NEUTRINO_PATCHES =
 
 $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino

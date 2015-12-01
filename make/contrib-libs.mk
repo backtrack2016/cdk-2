@@ -2055,7 +2055,7 @@ $(D)/libdaemon: $(D)/bootstrap @DEPENDS_libdaemon@
 		@INSTALL_libdaemon@
 	@CLEANUP_libdaemon@
 	touch $@
-	
+
 #
 # libplist
 #
