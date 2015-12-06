@@ -778,3 +778,113 @@ neutrino-distclean:
 	rm -f $(D)/neutrino*
 
 ################################################################################
+#
+# yaud-neutrino-old
+#
+yaud-neutrino-old: yaud-none lirc \
+		boot-elf neutrino-old release_neutrino-old
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-old-plugins: yaud-none lirc \
+		boot-elf neutrino-old neutrino-old-mp-plugins release_neutrino-old
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-old-xupnpd: yaud-none lirc \
+		boot-elf neutrino-old xupnpd release_neutrino-old
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
+# fs-basis neutrino-old
+#
+FS_NEUTRINO_OLD_PATCHES =
+
+$(D)/neutrino-old.do_prepare: | $(neutrino-old_DEPS) libstb-hal-cst-next
+	rm -rf $(sourcedir)/neutrino-old
+	rm -rf $(sourcedir)/neutrino-old.org
+	rm -rf $(N_OBJDIR)
+	[ -d "$(archivedir)/neutrino-old.git" ] && \
+	(cd $(archivedir)/neutrino-old.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-old.git" ] || \
+	git clone https://github.com/fs-basis/neutrino-old.git $(archivedir)/neutrino-old.git; \
+	cp -ra $(archivedir)/neutrino-old.git $(sourcedir)/neutrino-old; \
+	cp -ra $(sourcedir)/neutrino-old $(sourcedir)/neutrino-old.org
+	for i in $(FS_neutrino-old_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		set -e; cd $(sourcedir)/neutrino-old && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(D)/neutrino-old.config.status:
+	rm -rf $(N_OBJDIR)
+	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR) && \
+	cd $(N_OBJDIR) && \
+		$(sourcedir)/neutrino-old/autogen.sh && \
+		$(BUILDENV) \
+		$(sourcedir)/neutrino-old/configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--disable-upnp \
+			--disable-fastscan \
+			--enable-ffmpegdec \
+			--enable-giflib \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/tuxbox/plugins \
+			--with-iconsdir=/usr/share/tuxbox/neutrino-old/icons \
+			--with-localedir=/usr/share/tuxbox/neutrino-old/locale \
+			--with-private_httpddir=/usr/share/tuxbox/neutrino-old/httpd \
+			--with-themesdir=/usr/share/tuxbox/neutrino-old/themes \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-cst-next/include \
+			--with-stb-hal-build=$(LH_OBJDIR) \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(sourcedir)/neutrino-old/src/gui/version.h:
+	@rm -f $@; \
+	echo '#define BUILT_DATE "'`date`'"' > $@
+	@if test -d $(sourcedir)/libstb-hal-cst-next ; then \
+		pushd $(sourcedir)/libstb-hal-cst-next ; \
+		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(sourcedir)/neutrino-old ; \
+		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(buildprefix) ; \
+		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		echo '#define VCS "FS_BASE-rev'$$DDT_REV'_HAL-github-rev'$$HAL_REV'_FS-Neutrino-old-rev'$$NMP_REV'"' >> $@ ; \
+	fi
+
+$(D)/neutrino-old.do_compile: neutrino-old.config.status $(sourcedir)/neutrino-old/src/gui/version.h
+	cd $(sourcedir)/neutrino-old && \
+		$(MAKE) -C $(N_OBJDIR) all
+	touch $@
+
+$(D)/neutrino-old: neutrino-old.do_prepare neutrino-old.do_compile
+	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino-old
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-old-clean:
+	rm -f $(D)/neutrino-old
+	rm -f $(sourcedir)/neutrino-old/src/gui/version.h
+	cd $(N_OBJDIR) && \
+		$(MAKE) -C $(N_OBJDIR) distclean
+
+neutrino-old-distclean:
+	rm -rf $(N_OBJDIR)
+	rm -f $(D)/neutrino-old*
+
+################################################################################

@@ -35,3 +35,6 @@ FS_NEUTRINO_TEST_PATCHES +=
 
 # fs-basis neutrino
 FS_NEUTRINO_PATCHES +=
+
+# fs-basis neutrino-old
+FS_NEUTRINO_OLD_PATCHES +=

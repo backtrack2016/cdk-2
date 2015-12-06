@@ -387,6 +387,7 @@ case "$IMAGE" in
 		--enable-neutrino*)
 		echo "  make yaud-neutrino"
 		echo "  make yaud-neutrino-test"
+		echo "  make yaud-neutrino-old"
 		echo "  make yaud-neutrino-mp"
 		echo "  make yaud-neutrino-mp-next"
 		echo "  make yaud-neutrino-mp-cst-next"
