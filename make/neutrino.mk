@@ -588,7 +588,7 @@ $(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	git clone https://github.com/fs-basis/neutrino-test.git $(archivedir)/neutrino-test.git; \
 	cp -ra $(archivedir)/neutrino-test.git $(sourcedir)/neutrino-test; \
 	cp -ra $(sourcedir)/neutrino-test $(sourcedir)/neutrino-test.org
-	for i in $(FS_NEUTRINO_PATCHES); do \
+	for i in $(FS_NEUTRINO_TEST_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
 		set -e; cd $(sourcedir)/neutrino-test && patch -p1 -i $$i; \
 	done;
@@ -808,7 +808,7 @@ $(D)/neutrino-old.do_prepare: | $(neutrino-old_DEPS) libstb-hal-cst-next
 	git clone https://github.com/fs-basis/neutrino-old.git $(archivedir)/neutrino-old.git; \
 	cp -ra $(archivedir)/neutrino-old.git $(sourcedir)/neutrino-old; \
 	cp -ra $(sourcedir)/neutrino-old $(sourcedir)/neutrino-old.org
-	for i in $(FS_neutrino-old_PATCHES); do \
+	for i in $(FS_NEUTRINO_OLD_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
 		set -e; cd $(sourcedir)/neutrino-old && patch -p1 -i $$i; \
 	done;

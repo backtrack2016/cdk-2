@@ -4,6 +4,7 @@
 enigma2-nightly-patch \
 neutrino-patch \
 neutrino-test-patch \
+neutrino-old-patch \
 neutrino-mp-next-patch \
 neutrino-mp-tangos-patch \
 neutrino-mp-cst-next-patch \
