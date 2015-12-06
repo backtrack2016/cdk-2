@@ -30,5 +30,8 @@ NEUTRINO_MP_TANGOS_PATCHES +=
 NEUTRINO_HD2_PATCHES += $(PATCHES)/neutrino-hd2-exp.diff
 NEUTRINO_HD2_PLUGINS_PATCHES +=
 
-#Neutrino MP FS
+# fs-basis neutrino-test
+FS_NEUTRINO_TEST_PATCHES +=
+
+# fs-basis neutrino
 FS_NEUTRINO_PATCHES +=

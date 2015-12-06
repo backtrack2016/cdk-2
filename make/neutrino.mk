@@ -559,9 +559,7 @@ neutrino-mp-tangos-distclean:
 
 ################################################################################
 #
-# Frankenstone - neutrino-test
-#
-# WebIF off => --disable-webif \
+# yaud-neutrino-test
 #
 yaud-neutrino-test: yaud-none lirc \
 		boot-elf neutrino-test release_neutrino
@@ -575,7 +573,10 @@ yaud-neutrino-test-xupnpd: yaud-none lirc \
 		boot-elf neutrino-test xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-FS_NEUTRINO_PATCHES =
+#
+# fs-basis neutrino-test
+#
+FS_NEUTRINO_TEST_PATCHES =
 
 $(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-test
@@ -584,7 +585,7 @@ $(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	[ -d "$(archivedir)/neutrino-test.git" ] && \
 	(cd $(archivedir)/neutrino-test.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-test.git" ] || \
-	git clone https://github.com/Frankenstone/neutrino-test.git $(archivedir)/neutrino-test.git; \
+	git clone https://github.com/fs-basis/neutrino-test.git $(archivedir)/neutrino-test.git; \
 	cp -ra $(archivedir)/neutrino-test.git $(sourcedir)/neutrino-test; \
 	cp -ra $(sourcedir)/neutrino-test $(sourcedir)/neutrino-test.org
 	for i in $(FS_NEUTRINO_PATCHES); do \
@@ -668,9 +669,7 @@ neutrino-test-distclean:
 
 ################################################################################
 #
-# fs-basis - neutrino
-#
-# WebIF off => --disable-webif \
+# yaud-neutrino
 #
 yaud-neutrino: yaud-none lirc \
 		boot-elf neutrino release_neutrino
@@ -684,6 +683,9 @@ yaud-neutrino-xupnpd: yaud-none lirc \
 		boot-elf neutrino xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
+#
+# fs-basis neutrino
+#
 FS_NEUTRINO_PATCHES =
 
 $(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
