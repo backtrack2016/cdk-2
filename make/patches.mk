@@ -2,7 +2,6 @@
 # diff helper
 #
 enigma2-nightly-patch \
-neutrino-patch \
 neutrino-test-patch \
 neutrino-old-patch \
 neutrino-mp-next-patch \
@@ -33,9 +32,6 @@ NEUTRINO_HD2_PLUGINS_PATCHES +=
 
 # fs-basis neutrino-test
 FS_NEUTRINO_TEST_PATCHES +=
-
-# fs-basis neutrino
-FS_NEUTRINO_PATCHES +=
 
 # fs-basis neutrino-old
 FS_NEUTRINO_OLD_PATCHES +=

@@ -385,7 +385,6 @@ echo "Your build environment is ready :-)"
 echo "Your next step could be:"
 case "$IMAGE" in
 		--enable-neutrino*)
-		echo "  make yaud-neutrino"
 		echo "  make yaud-neutrino-test"
 		echo "  make yaud-neutrino-old"
 		echo "  make yaud-neutrino-mp"
