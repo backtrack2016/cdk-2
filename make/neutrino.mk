@@ -610,6 +610,7 @@ $(D)/neutrino-test.config.status:
 			--disable-fastscan \
 			--enable-ffmpegdec \
 			--enable-giflib \
+			--enable-lua \
 			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/usr/share/tuxbox \
@@ -720,6 +721,7 @@ $(D)/neutrino-old.config.status:
 			--disable-fastscan \
 			--enable-ffmpegdec \
 			--enable-giflib \
+			--enable-lua \
 			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/usr/share/tuxbox \
