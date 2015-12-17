@@ -726,10 +726,10 @@ $(D)/neutrino-old.config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/tuxbox/plugins \
-			--with-iconsdir=/usr/share/tuxbox/neutrino-old/icons \
-			--with-localedir=/usr/share/tuxbox/neutrino-old/locale \
-			--with-private_httpddir=/usr/share/tuxbox/neutrino-old/httpd \
-			--with-themesdir=/usr/share/tuxbox/neutrino-old/themes \
+			--with-iconsdir=/usr/share/tuxbox/neutrino/icons \
+			--with-localedir=/usr/share/tuxbox/neutrino/locale \
+			--with-private_httpddir=/usr/share/tuxbox/neutrino/httpd \
+			--with-themesdir=/usr/share/tuxbox/neutrino/themes \
 			--with-stb-hal-includes=$(sourcedir)/libstb-hal-cst-next/include \
 			--with-stb-hal-build=$(LH_OBJDIR) \
 			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
@@ -761,7 +761,7 @@ $(D)/neutrino-old: neutrino-old.do_prepare neutrino-old.do_compile
 	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
 	rm -f $(targetprefix)/var/etc/.version
 	make $(targetprefix)/var/etc/.version
-	$(target)-strip $(targetprefix)/usr/local/bin/neutrino-old
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
 	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
