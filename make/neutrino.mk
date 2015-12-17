@@ -672,11 +672,11 @@ neutrino-test-distclean:
 # yaud-neutrino-old
 #
 yaud-neutrino-old: yaud-none lirc \
-		boot-elf neutrino-old release_neutrino-old
+		boot-elf neutrino-old release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-old-plugins: yaud-none lirc \
-		boot-elf neutrino-old neutrino-old-mp-plugins release_neutrino-old
+		boot-elf neutrino-old neutrino-mp-plugins release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-old-xupnpd: yaud-none lirc \
