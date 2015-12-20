@@ -413,7 +413,7 @@ $(sourcedir)/neutrino-alpha/src/gui/version.h:
 		pushd $(buildprefix) ; \
 		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
-		echo '#define VCS "FS_CDK-rev'$$DDT_REV'_HAL-rev'$$HAL_REV'_FS-neutrino-alpha-rev'$$NMP_REV'"' >> $@ ; \
+		echo '#define VCS "FS_CDK-rev'$$DDT_REV'_HAL-rev'$$HAL_REV'_FS-Neutrino-alpha-rev'$$NMP_REV'"' >> $@ ; \
 	fi
 
 $(D)/neutrino-alpha.do_compile: neutrino-alpha.config.status $(sourcedir)/neutrino-alpha/src/gui/version.h
