@@ -331,3 +331,114 @@ neutrino-old-distclean:
 	rm -f $(D)/neutrino-old*
 
 ################################################################################
+#
+# yaud-neutrino-alpha
+#
+yaud-neutrino-alpha: yaud-none lirc \
+		boot-elf neutrino-alpha release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-alpha-plugins: yaud-none lirc \
+		boot-elf neutrino-alpha neutrino-mp-plugins release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-alpha-xupnpd: yaud-none lirc \
+		boot-elf neutrino-alpha xupnpd release_neutrino-alpha
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
+# fs-basis neutrino-alpha
+#
+FS_NEUTRINO_ALPHA_PATCHES =
+
+$(D)/neutrino-alpha.do_prepare: | $(neutrino-alpha_DEPS) libstb-hal-cst-next
+	rm -rf $(sourcedir)/neutrino-alpha
+	rm -rf $(sourcedir)/neutrino-alpha.org
+	rm -rf $(N_OBJDIR)
+	[ -d "$(archivedir)/neutrino-alpha.git" ] && \
+	(cd $(archivedir)/neutrino-alpha.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-alpha.git" ] || \
+	git clone https://github.com/fs-basis/neutrino-alpha.git $(archivedir)/neutrino-alpha.git; \
+	cp -ra $(archivedir)/neutrino-alpha.git $(sourcedir)/neutrino-alpha; \
+	cp -ra $(sourcedir)/neutrino-alpha $(sourcedir)/neutrino-alpha.org
+	for i in $(FS_NEUTRINO_ALPHA_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		set -e; cd $(sourcedir)/neutrino-alpha && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(D)/neutrino-alpha.config.status:
+	rm -rf $(N_OBJDIR)
+	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR) && \
+	cd $(N_OBJDIR) && \
+		$(sourcedir)/neutrino-alpha/autogen.sh && \
+		$(BUILDENV) \
+		$(sourcedir)/neutrino-alpha/configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--disable-upnp \
+			--disable-fastscan \
+			--enable-ffmpegdec \
+			--enable-giflib \
+			--enable-lua \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/tuxbox/plugins \
+			--with-iconsdir=/usr/share/tuxbox/neutrino/icons \
+			--with-localedir=/usr/share/tuxbox/neutrino/locale \
+			--with-private_httpddir=/usr/share/tuxbox/neutrino/httpd \
+			--with-themesdir=/usr/share/tuxbox/neutrino/themes \
+			--with-stb-hal-includes=$(sourcedir)/libstb-hal-cst-next/include \
+			--with-stb-hal-build=$(LH_OBJDIR) \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(sourcedir)/neutrino-alpha/src/gui/version.h:
+	@rm -f $@; \
+	echo '#define BUILT_DATE "'`date`'"' > $@
+	@if test -d $(sourcedir)/libstb-hal-cst-next ; then \
+		pushd $(sourcedir)/libstb-hal-cst-next ; \
+		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(sourcedir)/neutrino-alpha ; \
+		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(buildprefix) ; \
+		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		echo '#define VCS "FS_CDK-rev'$$DDT_REV'_HAL-rev'$$HAL_REV'_FS-neutrino-alpha-rev'$$NMP_REV'"' >> $@ ; \
+	fi
+
+$(D)/neutrino-alpha.do_compile: neutrino-alpha.config.status $(sourcedir)/neutrino-alpha/src/gui/version.h
+	cd $(sourcedir)/neutrino-alpha && \
+		$(MAKE) -C $(N_OBJDIR) all
+	touch $@
+
+$(D)/neutrino-alpha: neutrino-alpha.do_prepare neutrino-alpha.do_compile
+	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-alpha-clean:
+	rm -f $(D)/neutrino-alpha
+	rm -f $(sourcedir)/neutrino-alpha/src/gui/version.h
+	cd $(N_OBJDIR) && \
+		$(MAKE) -C $(N_OBJDIR) distclean
+
+neutrino-alpha-distclean:
+	rm -rf $(N_OBJDIR)
+	rm -f $(D)/neutrino-alpha*
+
+################################################################################
