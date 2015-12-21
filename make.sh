@@ -385,9 +385,10 @@ echo "Your build environment is ready :-)"
 echo "Your next step could be:"
 case "$IMAGE" in
 		--enable-neutrino*)
-		echo "  make yaud-neutrino-test"
+		echo "  make yaud-neutrino-mp-cst-next"
+		echo "  make yaud-neutrino-alpha"
 		echo "  make yaud-neutrino-old"
-		echo "  make yaud-neutrino-alpha";;
+		echo "  make yaud-neutrino-test";;
 		--enable-enigma2*)
 		echo "  make yaud-enigma2-pli-nightly";;
 		--enable-tvheadend*)
