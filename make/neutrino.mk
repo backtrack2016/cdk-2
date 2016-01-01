@@ -240,7 +240,7 @@ yaud-neutrino-alpha-xupnpd: yaud-none lirc \
 #
 FS_NEUTRINO_ALPHA_PATCHES =
 
-$(D)/neutrino-alpha.do_prepare: | $(neutrino-alpha_DEPS) libstb-hal-cst-next
+$(D)/neutrino-alpha.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-alpha
 	rm -rf $(sourcedir)/neutrino-alpha.org
 	rm -rf $(N_OBJDIR)
@@ -352,7 +352,7 @@ yaud-neutrino-old-xupnpd: yaud-none lirc \
 #
 FS_NEUTRINO_OLD_PATCHES =
 
-$(D)/neutrino-old.do_prepare: | $(neutrino-old_DEPS) libstb-hal-cst-next
+$(D)/neutrino-old.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-old
 	rm -rf $(sourcedir)/neutrino-old.org
 	rm -rf $(N_OBJDIR)
