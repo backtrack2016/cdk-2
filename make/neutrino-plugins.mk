@@ -7,13 +7,11 @@
 #
 $(D)/neutrino-mp-plugins.do_prepare:
 	rm -rf $(sourcedir)/neutrino-mp-plugins
-	rm -rf $(sourcedir)/neutrino-mp-plugins.org
 	[ -d "$(archivedir)/neutrino-mp-plugins.git" ] && \
 	(cd $(archivedir)/neutrino-mp-plugins.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp-plugins.git" ] || \
 	git clone https://github.com/fs-basis/neutrino-mp-plugins.git $(archivedir)/neutrino-mp-plugins.git; \
 	cp -ra $(archivedir)/neutrino-mp-plugins.git $(sourcedir)/neutrino-mp-plugins;\
-	cp -ra $(sourcedir)/neutrino-mp-plugins $(sourcedir)/neutrino-mp-plugins.org
 	touch $@
 
 $(sourcedir)/neutrino-mp-plugins/config.status: $(D)/bootstrap $(D)/xupnpd
@@ -44,8 +42,9 @@ $(D)/neutrino-mp-plugins.do_compile: $(sourcedir)/neutrino-mp-plugins/config.sta
 	touch $@
 
 $(D)/neutrino-mp-plugins: neutrino-mp-plugins.do_prepare neutrino-mp-plugins.do_compile
+	rm -rf $(targetprefix)/var/tuxbox/plugins/*
 	$(MAKE) -C $(sourcedir)/neutrino-mp-plugins install DESTDIR=$(targetprefix)
-	touch $@
+#	touch $@
 
 neutrino-mp-plugins-clean:
 	rm -f $(D)/neutrino-mp-plugins

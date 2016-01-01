@@ -556,3 +556,9 @@ neutrino-test-distclean:
 	rm -f $(D)/neutrino-test*
 
 ################################################################################
+neutrino-cdkroot-clean:
+	[ -e $(targetprefix)/usr/local/bin ] && cd $(targetprefix)/usr/local/bin && find -name '*' -delete || true
+	[ -e $(targetprefix)/usr/local/share/iso-codes ] && cd $(targetprefix)/usr/local/share/iso-codes && find -name '*' -delete || true
+	[ -e $(targetprefix)/usr/share/tuxbox/neutrino ] && cd $(targetprefix)/usr/share/tuxbox/neutrino && find -name '*' -delete || true
+	[ -e $(targetprefix)/usr/share/fonts ] && cd $(targetprefix)/usr/share/fonts && find -name '*' -delete || true
+################################################################################
