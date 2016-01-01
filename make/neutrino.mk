@@ -245,10 +245,9 @@ $(D)/neutrino-alpha.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-alpha.org
 	rm -rf $(N_OBJDIR)
 	[ -d "$(archivedir)/neutrino-alpha.git" ] && \
-	(cd $(archivedir)/neutrino-alpha.git; git checkout alpha; git pull; cd "$(buildprefix)";); \
+	(cd $(archivedir)/neutrino-alpha.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-alpha.git" ] || \
-	git clone https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-alpha.git; \
-	(cd $(archivedir)/neutrino-alpha.git; git checkout alpha); \
+	git clone -b alpha https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-alpha.git; \
 	cp -ra $(archivedir)/neutrino-alpha.git $(sourcedir)/neutrino-alpha; \
 	cp -ra $(sourcedir)/neutrino-alpha $(sourcedir)/neutrino-alpha.org
 	for i in $(FS_NEUTRINO_ALPHA_PATCHES); do \
@@ -357,10 +356,9 @@ $(D)/neutrino-old.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-old.org
 	rm -rf $(N_OBJDIR)
 	[ -d "$(archivedir)/neutrino-old.git" ] && \
-	(cd $(archivedir)/neutrino-old.git; git checkout old; git pull; cd "$(buildprefix)";); \
+	(cd $(archivedir)/neutrino-old.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-old.git" ] || \
-	git clone https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-old.git; \
-	(cd $(archivedir)/neutrino-old.git; git checkout old); \
+	git clone -b old https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-old.git; \
 	cp -ra $(archivedir)/neutrino-old.git $(sourcedir)/neutrino-old; \
 	cp -ra $(sourcedir)/neutrino-old $(sourcedir)/neutrino-old.org
 	for i in $(FS_NEUTRINO_OLD_PATCHES); do \
@@ -469,10 +467,9 @@ $(D)/neutrino-test.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-cst-next
 	rm -rf $(sourcedir)/neutrino-test.org
 	rm -rf $(N_OBJDIR)
 	[ -d "$(archivedir)/neutrino-test.git" ] && \
-	(cd $(archivedir)/neutrino-test.git; git checkout test; git pull; cd "$(buildprefix)";); \
+	(cd $(archivedir)/neutrino-test.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-test.git" ] || \
-	git clone https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-test.git; \
-	(cd $(archivedir)/neutrino-test.git; git checkout test); \
+	git clone -b test https://github.com/fs-basis/neutrino-mp-cst-next.git $(archivedir)/neutrino-test.git; \
 	cp -ra $(archivedir)/neutrino-test.git $(sourcedir)/neutrino-test; \
 	cp -ra $(sourcedir)/neutrino-test $(sourcedir)/neutrino-test.org
 	for i in $(FS_NEUTRINO_TEST_PATCHES); do \
