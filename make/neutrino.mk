@@ -232,7 +232,7 @@ yaud-neutrino-alpha-plugins: yaud-none lirc \
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-alpha-xupnpd: yaud-none lirc \
-		boot-elf neutrino-alpha xupnpd release_neutrino-alpha
+		boot-elf neutrino-alpha xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 #
@@ -343,7 +343,7 @@ yaud-neutrino-old-plugins: yaud-none lirc \
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-old-xupnpd: yaud-none lirc \
-		boot-elf neutrino-old xupnpd release_neutrino-old
+		boot-elf neutrino-old xupnpd release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 #
