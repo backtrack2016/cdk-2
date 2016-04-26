@@ -954,7 +954,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--disable-inline-asm \
 			--disable-yasm \
 			--disable-mips32r2 \
-			--disable-mipsdsp \
+			--disable-mipsdspr1 \
 			--disable-mipsdspr2 \
 			--disable-mipsfpu \
 			--disable-fast-unaligned \
@@ -1076,7 +1076,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--enable-protocol=rtmpte \
 			--enable-protocol=rtmpts \
 			--enable-protocol=rtp \
-			--enable-protocol=rtsp \
+			--enable-protocol=rtps \
 			--enable-protocol=tcp \
 			--enable-protocol=udp \
 			\
