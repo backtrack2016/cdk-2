@@ -26,3 +26,6 @@ FS_NEUTRINO_OLD_PATCHES +=
 
 # fs-basis neutrino-test
 FS_NEUTRINO_TEST_PATCHES +=
+
+# lcd4linux
+LCD4LINUX_PATCHES +=
